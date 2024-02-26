@@ -5,6 +5,8 @@ export function setLogIn(data:any) {
   TokenService.saveToken(data.token)
   const user = data.user
   user.token = data.token
+  user.permissions = data.permissions
+  user.roles = data.roles
   AuthService.setLoggedInUser(user)
 }
 

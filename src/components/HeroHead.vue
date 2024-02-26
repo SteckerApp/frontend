@@ -1,7 +1,6 @@
 <template>
     <div 
-        class="hero-head d-flex align-items-center w-100 hpx-450 top-0 start-0"
-        :class="{'position-absolute justify-content-center': isNotHome}"
+        class="container-fluid overflow-hidden hero-head top-0 start-0"
     >
         <slot></slot>
     </div>

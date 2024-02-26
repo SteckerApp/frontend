@@ -14,6 +14,7 @@ interface AlertConfig extends Omit<SweetAlertOptions,"html"> {
 export const fire = (SwalOptions:SweetAlertOptions)=>{
     return Swal.fire(SwalOptions)
 };
+
 export const alert = (config?:AlertConfig, isMessage?:boolean)=>{
     // Modifiable configurations for confirmation alert
     const preConfig = {
@@ -41,7 +42,7 @@ export const alert = (config?:AlertConfig, isMessage?:boolean)=>{
         <div class="message text-secondary-muted fw-400 fs-15 lh-23 mx-auto mt-2 px-4">${conf.message}</div>
       </div>`,
       ...conf
-    })
+    } as SweetAlertOptions)
 } 
 
 

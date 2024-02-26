@@ -22,6 +22,7 @@
     "@vuelidate/core": "^2.0.0-alpha.44",
     "@vuelidate/validators": "^2.0.0-alpha.31",
     "@vuepic/vue-datepicker": "^3.3.0",
+    "@vueup/vue-quill": "^1.2.0",
     "axios": "^0.25.0",
     "bootstrap": "^5.2.2",
     "chart.js": "^3.7.1",
@@ -30,7 +31,7 @@
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
     "lodash-es": "^4.17.21",
-    "material-icons": "^1.10.6",
+    "material-icons": "^1.13.12",
     "sweetalert2": "^11.4.29",
     "vue": "^3.2.37",
     "vue-accessible-color-picker": "^4.0.6",
@@ -38,6 +39,7 @@
     "vue-router": "^4.0.15",
     "vue3-carousel": "^0.2.9",
     "vue3-draggable": "^2.0.9",
+    "vue3-paystack": "^0.0.5",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
@@ -71,7 +73,12 @@
       "safeLog": "readonly",
       "playStackNotificationSound": "readonly",
       "recordSparkAudio": "readonly",
-      "getBOrWFomStarkColor": "readonly"
+      "userCurrency": "readonly",
+      "formatMoney": "readonly",
+      "getBOrWFomStarkColor": "readonly",
+      "debounce": "readonly",
+      "tempUserImages": "readonly",
+      "CreateWhatsappChatWidget": "readonly"
     },
     "env": {
       "node": true

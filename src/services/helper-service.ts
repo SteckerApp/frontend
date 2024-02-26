@@ -73,14 +73,20 @@ export const isEmptyObj = (obj:any) => isPlainObject(obj) && !Object.keys(obj).l
  * @param string
  * @returns {string}
  */
-export const getBgColorFromName = (string:string) => {
-   let hash = 0
-   if (!string) return 'black'
-   for (const char of string.split('')) {
-     hash = (hash << (8 - hash)) + char.charCodeAt(0)
-   }
-   return '#' + Math.abs(hash).toString(16).substr(0, 6)
+/* eslint-disable no-bitwise */
+export const  getBgColorFromName = (string:string) => {
+  let hash = 0;
+  string.split('').forEach(char => {
+    hash = char.charCodeAt(0) + ((hash << 5) - hash)
+  })
+  let color = '#'
+  for (let i = 0; i < 3; i++) {
+    const value = (hash >> (i * 8)) & 0xff
+    color += value.toString(16).padStart(2, '0')
+  }
+  return color
 }
+/* eslint-enable no-bitwise */
 
 /**
  * Generate text color from the string passed (eg user's name)
@@ -127,6 +133,21 @@ export const getLocalStorageItem = (key:string)=>{
     return JSON.parse(decrypt(localStorage.getItem(key) as string))
   }else{
     return JSON.parse(localStorage.getItem(key) as string)
+  }
+}
+
+export const setSessionStorageItem = (key:string, data:any)=>{
+  if (process.env.NODE_ENV === 'production') {
+    sessionStorage.setItem(key, encrypt(JSON.stringify(data)));
+  }else{
+    sessionStorage.setItem(key, JSON.stringify(data));
+  }
+}
+export const getSessionStorageItem = (key:string)=>{
+  if (process.env.NODE_ENV === 'production' && sessionStorage.getItem(key)) {
+    return JSON.parse(decrypt(sessionStorage.getItem(key) as string))
+  }else{
+    return JSON.parse(sessionStorage.getItem(key) as string)
   }
 }
 
@@ -197,17 +218,6 @@ export const allowedDecimalPlaces = (evt:KeyboardEvent|ClipboardEvent,decimalPla
   }
 }
 
-/**
- * This function highlights part of strings with color
- * 
- * @use HelperService.highlightText('this is a text','is','primary')
- * @param {string} string 
- * @param {string} filter 
- * @param {string} shrColor 
- */
- export const highlightText = (string:string, filter:string, shrColor="success") => {
-  return string.replace(new RegExp(filter, "gi"), m => `<span class='text-${shrColor}'>${m}</span>`)
-}
 
 export const imageExists = (url:string, callback?:(exist:boolean)=>any) => {
   const img = new Image();
@@ -227,38 +237,6 @@ export const imageExists = (url:string, callback?:(exist:boolean)=>any) => {
   }
 }
 
-/**
- * This function converts object into query string
- * 
- * @use HelperService.httpBuildQuery({param1:'hello',param2:'Hi'})
- * @param {string} string 
- * @param {string} filter 
- */
-export const httpBuildQuery = (queryParams:any) => {
-  const esc = encodeURIComponent;
-  const query = Object.keys(queryParams).map(k => esc(k) + '=' + esc(queryParams[k])).join('&');
-  return query
-}
-
-/**
- * This generates a universally unique identifier
- * 
- * @use HelperService.uuid({param1:'hello',param2:'Hi'})
- * @param {string} prefix 
- * @param {string} suffix 
- */
-export const uuid = (prefix?:string, suffix?:string) => {
-  return (
-    prefix +
-    Math.random()
-      .toString(36)
-      .substring(2, 8) +
-    Math.random()
-      .toString(36)
-      .substring(2, 8) +
-    suffix
-  );
-}
 
 /**
  * This formats date object to a given format
@@ -270,4 +248,16 @@ export const uuid = (prefix?:string, suffix?:string) => {
  */
  export const dateFormatter = (date:Date, format='dd-MM-yyyy') => {
   return fnsFormatter(new Date(date),format);
+ }
+
+
+export const formatMoney = (amount: number|string, withCurrency=true) => {
+  // Format the number with two decimal places and commas for thousands separator
+  if (amount) {
+    amount = amount.toString().replace(',', '')
+    const formattedAmount = Number(amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    const currency = window.userCurrency()
+    return withCurrency ? `${currency}${formattedAmount}` : formattedAmount
+  }
+  return ''
 }

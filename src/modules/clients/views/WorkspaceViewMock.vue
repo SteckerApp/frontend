@@ -61,21 +61,21 @@
                     element-class="auth-element hpx-50 bg-blue-lt-1 rounded-0 border-blue-lt-1" 
                     placeholder="Name" 
                     v-model="form.name"
-                    :error-msg="serverError?.first_name?.[0]"
+                    :error-msg="serverError?.name?.[0]"
                 />
                 <AuthTextInput 
                     wrapper-class="mx-2" 
                     element-class="auth-element hpx-50 bg-blue-lt-1 rounded-0 border-blue-lt-1" 
                     placeholder="Email" 
                     v-model="form.email"
-                    :error-msg="serverError?.last_name?.[0]"
+                    :error-msg="serverError?.email?.[0]"
                 />
                 <AuthTextInput 
                     wrapper-class="ms-2" 
                     element-class="auth-element hpx-50 bg-blue-lt-1 rounded-0 border-blue-lt-1" 
                     placeholder="Role" 
                     v-model="form.role"
-                    :error-msg="serverError?.last_name?.[0]"
+                    :error-msg="serverError?.role?.[0]"
                 />
             </div>
             <div class="d-flex">
@@ -125,7 +125,6 @@
 
     onMounted(()=>{
         executeGetTeamData().then((res:any)=>{
-            console.log(res.data)
             teamData.value = res.data
         })
     })
@@ -170,7 +169,6 @@
             } = deleteWorkspaceMember(staff.id);
 
             executeDeleteWorkspaceMember().then((res:any)=>{
-                console.log('brand',res)
                 if (deletingWorkspaceMemberIsSuccessful.value) {
                     AlertService.toast('success','Success',res.message)
                 }

@@ -38,6 +38,10 @@ const TokenService = {
     Cookies.set(key, data, options)
   },
 
+  remove(key:string, options?: CookieAttributes):void{
+    Cookies.remove(key, options)
+  },
+
   getTokenKey():string{
     return TOKEN_KEY;
   },

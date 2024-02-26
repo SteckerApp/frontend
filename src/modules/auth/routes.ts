@@ -1,7 +1,4 @@
-import { RouteLocationNormalized, type RouteRecordRaw } from 'vue-router';
-
-import { Auth, PreventAuth } from '../../router/middleware';
-import RouteService from '@/services/route-service'
+import {type RouteRecordRaw } from 'vue-router';
 import LoginPage from './views/LoginPage.vue';
 import RegisterPage from './views/RegisterPage.vue';
 import EmailVerification from './views/EmailVerification.vue';
@@ -9,6 +6,7 @@ import AuthCompanyProfile from './views/AuthCompanyProfile.vue';
 import ForgotPasswordPage from './views/ForgotPasswordPage.vue';
 import ResetPasswordPage from './views/ResetPasswordPage.vue';
 import AuthLayout from '@/layouts/AuthLayout.vue';
+import { RequiredAuth } from '@/router/middleware'
 
 const AuthRoutes: Array<RouteRecordRaw> = [
     {
@@ -20,9 +18,17 @@ const AuthRoutes: Array<RouteRecordRaw> = [
             path: '/login',
             name: 'Auth.Login',
             component: LoginPage,
+            meta: {
+                middleware: [RequiredAuth],
+            },
         },
         {
-            path: '/register',
+            path: '/login/choose-account',
+            name: 'Auth.Login.ChooseAccount',
+            component: LoginPage,
+        },
+        {
+            path: '/register/:role?',
             name: 'Auth.Register',
             component: RegisterPage,
         },

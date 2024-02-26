@@ -15,14 +15,14 @@
         <span
             v-if="!addUser" 
             class="perfect-center bg-blue-lt-1 text-blue-dk-1 gilroy-medium rounded-circle" 
-            :class="[{invisible:users.length<=3},`wpx-${size} hpx-${size} fs-${Math.round(size/3)} lh-${Math.round(size/3)}`]"
+            :class="[{invisible:users?.length<=3},`wpx-${size} hpx-${size} fs-${Math.round(size/3)} lh-${Math.round(size/3)}`]"
         >
-            {{users.length-3}}
+            {{users?.length-3}}
         </span>
         <div class="position-relative" v-if="addUser">
             <span
                 class="perfect-center bg-blue-lt-1 gilroy-medium rounded-circle cursor-pointer" 
-                :class="[{invisible:users.length<=3, 'text-blue': !openAddUserBox, 'text-danger': openAddUserBox},`wpx-${size} hpx-${size} fs-${Math.round(size/3)} lh-${Math.round(size/3)}`]"
+                :class="[{'text-blue': !openAddUserBox, 'text-danger': openAddUserBox},`wpx-${size} hpx-${size} fs-${Math.round(size/3)} lh-${Math.round(size/3)}`]"
                 @click="openAddUserBox=!openAddUserBox"
             >
                 {{openAddUserBox ? 'x': '+'}}
@@ -37,8 +37,11 @@
 
                     <div class="d-flex mb-3" v-for="(user, i) in teamMembers" :key="i">
                         <UserAvatar :size="22" :src="user.avatar" class="my-auto" />
-                        <span class="gilroy-regular fs-14 lh-16 my-auto ms-3">{{user.name}}</span>
-                        <input type="checkbox" class="my-auto ms-auto" v-model="user.is_selected" :true-value="true" :false-value="false"/>
+                        <div class="d-flex flex-column my-auto ms-3">
+                            <span class="gilroy-regular fs-14 lh-16 my-auto">{{ user.name }}</span>
+                            <span class="gilroy-regular fs-11 lh-12 my-auto mt-1 text-secondary-muted"><i>{{ user.role || 'Account Manager'}}</i></span>
+                        </div>
+                        <input :key="i" type="checkbox" class="my-auto ms-auto" :value="user.id" v-model="checkedUserIds" @change="getCheckedValues()" @click="getCheckedValue(user.id)"/>
                     </div>
 
                 </div>
@@ -52,22 +55,31 @@
 
 
 <script lang="ts" setup>
-    import {computed, ref} from 'vue'
+    import {computed, ref, Ref, onMounted } from 'vue'
     interface MemberCountProps {
         users:{id:number, avatar:string}[];
-        size:number;
-        componentWidth:string;
+        size?:number;
+        componentWidth?:string;
         addUser?: boolean;
-        team?:{id:number, avatar:string, name?:string, is_selected?:boolean}[];
+        team?: {
+            id: number,
+            avatar: string,
+            name?: string,
+            first_name?: string,
+            last_name?: string,
+            role: any
+        }[];
     }
     //eslint-disable-next-line
     const props = withDefaults(defineProps<MemberCountProps>(),{
         size:24,
         componentWidth:'wpx-80',
     })
+    //eslint-disable-next-line
+    const emits = defineEmits(['selected:user:id','selected:user:ids'])
 
     const overlayAvatars = computed(()=>{
-        return props.users.slice(0,3)
+        return props.users && props.users.slice(0,3)
     })
      const positionStyles = (index:number)=>{
         return [
@@ -76,16 +88,41 @@
             {zIndex:8, left:`${props.size}px`},
         ][index]
     }
+    const checkedUserIds: Ref<number[]> = ref([])
+    const addCheckedUser = () => {
+            props?.team?.map((user) => {
+            const userInUsers = props.users.findIndex((u) => u.id == user.id)
+            if (userInUsers > -1) {
+                checkedUserIds.value.push(user.id)
+            }
+        })
+    }
+    onMounted(() => {
+        addCheckedUser()
+    })
     const openAddUserBox = ref(false)
     const searchWord = ref('')
     const teamMembers = computed(()=>{
         const users = props?.team?.map((user)=>{
-            const userInUsers = props.users.findIndex((u)=>u.id==user.id)
-            user.is_selected = userInUsers==-1 ? false : true
+            user.name = user.name || `${user.first_name} ${user.last_name}`
             return user
         })
-        return users?.sort((a, b) => (a?.is_selected === b?.is_selected) ? 0 : a?.is_selected ? -1 : 1)
+        //return users;
+        //return users?.sort((a) => checkedUserIds.value.includes(a?.id) ? -1 : 1)
+        users?.sort((a) => checkedUserIds.value.includes(a?.id) ? -1 : 1)
+        return users;
     })
+    const getCheckedValue = (userId: number) => {
+        emits('selected:user:id', userId)
+    }
+    const getCheckedValues = () => {
+        //emits('selected:user:id', selectedUser.id)
+        emits('selected:user:ids', checkedUserIds.value)
+    }
+    // const getCheckedValues = (selectedUser: any) => {
+    //     emits('selected:user:id', selectedUser.id)
+    //     emits('selected:user:ids', checkedUserIds.value)
+    // }
 </script>
 
 

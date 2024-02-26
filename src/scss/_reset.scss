@@ -100,3 +100,15 @@ label:focus,
   justify-content: center;
   align-items: center;
 }
+.lead-text{
+  font-size: calc(1.275rem + .3vw);
+  font-weight: 300;
+}
+.z-1{
+  z-index: 1;
+}
+
+.spa-row {
+    display: flex;
+    flex-wrap: wrap;
+}

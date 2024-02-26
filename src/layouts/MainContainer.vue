@@ -1,5 +1,5 @@
 <template>
-  <div v-bind="$attrs" :class="[customClass]" class="w-100">
+  <div v-bind="$attrs">
       <slot></slot>
   </div>
 </template>
@@ -10,13 +10,7 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name:"MainContainer",
-  props: {
-    customClass:{
-      type:[Object, String],
-      default:"",
-    }
-  },
-  setup(props) {
+  setup() {
     return {}
   }
 })

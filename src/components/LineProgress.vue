@@ -23,7 +23,7 @@
 
 
 <script lang="ts">
-import {ref, computed, defineComponent,PropType} from 'vue'
+import {computed, defineComponent,PropType} from 'vue'
 
 type ProgressOption = {
     percentage:number;

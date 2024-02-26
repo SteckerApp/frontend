@@ -9,12 +9,15 @@
                 :src="teamData?.avatar"
             />
             <div class="d-flex flex-column my-auto ms-3">
-                <span class="gilroy-medium fs-30 lh-35 text-white mb-2">{{teamData?.name}}</span>
+                <div class="d-flex">
+                    <span class="gilroy-medium fs-30 lh-35 text-white mb-2 my-auto">{{ teamData?.name || 'No Workspace Name' }}</span>
+                    <i class="material-icons-outlined my-auto ms-3 text-white fs-18 cursor-pointer" @click="openEditWorkspaceModal = true">edit</i>
+                </div>
                 <span class="gilroy-regular fs-20 lh-23 text-white">My workspace</span>
             </div>
         </div>
         <span 
-            @click="openModal"
+            @click="showNewMemberModal = true"
             class="cursor-pointer my-auto d-flex justify-content-center align-items-center wpx-246 hpx-42 bg-blue-lt-1 text-blue-dk-1 gilroy-regular fs-20 lh-23 rounded-px-10"
         >
             Invite team member
@@ -61,21 +64,21 @@
                     element-class="auth-element hpx-50 bg-blue-lt-1 rounded-0 border-blue-lt-1" 
                     placeholder="Name" 
                     v-model="form.name"
-                    :error-msg="serverError?.first_name?.[0]"
+                    :error-msg="serverError?.name?.[0]"
                 />
                 <AuthTextInput 
                     wrapper-class="mx-2" 
                     element-class="auth-element hpx-50 bg-blue-lt-1 rounded-0 border-blue-lt-1" 
                     placeholder="Email" 
                     v-model="form.email"
-                    :error-msg="serverError?.last_name?.[0]"
+                    :error-msg="serverError?.email?.[0]"
                 />
                 <AuthTextInput 
                     wrapper-class="ms-2" 
                     element-class="auth-element hpx-50 bg-blue-lt-1 rounded-0 border-blue-lt-1" 
                     placeholder="Role" 
                     v-model="form.role"
-                    :error-msg="serverError?.last_name?.[0]"
+                    :error-msg="serverError?.role?.[0]"
                 />
             </div>
             <div class="d-flex">
@@ -85,6 +88,38 @@
         </div>
       </template>
       </ModalBox>
+
+
+       <ModalBox 
+            class="h-100" 
+            v-model="openEditWorkspaceModal" 
+            :staticBackDrop="true"
+            modalContentClass="rounded-0"
+            modal-custom-class="category-class" modalSize="modal-lg" modalWidth="390px"
+            @modal:closed="openEditWorkspaceModal = false" :modalId="`modal-oti-${Date.now()}`"
+        >
+            <template #default>
+                <div class="position-relative">
+                    <i class="material-icons-outlined fs-20 lh-20 text-blue-dk-2 fw-bold position-absolute end-0 cursor-pointer" @click="openEditWorkspaceModal = false">close</i>
+
+                    <div class="d-flex flex-column">
+                        <span class="gilroy-regular fs-25 lh-28 fw-500">Change workspace name</span>
+                        <span class="gilroy-regular fs-15 lh-18 fw-400 text-secondary-lt-4 mt-2">Enter your preferred name and save to update</span>
+                    </div>
+                    <div class="d-flex flex-column py-3">
+                        <AuthTextInput 
+                            element-class="auth-element hpx-50 rounded-0"
+                            placeholder="Category Name" 
+                            v-model="workspaceName"
+                        />
+                        <div class="d-flex mt-3">
+                            <FormButton label="Cancel" class="w-50 hpx-40 rounded-0" buttonType="outline"/>
+                            <FormButton label="Save Category" class="w-50 hpx-40 rounded-0 ms-4"/>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </ModalBox>
 
 </div>
 </template>
@@ -100,12 +135,10 @@
 
     const workspaceTeamData = ref({} as any)
     const showNewMemberModal = ref(false)
+    const openEditWorkspaceModal = ref(false)
+    const workspaceName = ref('')
 
     let { form, v$ } = validateNewWorkspaceMember();
-
-    const openModal = () =>{
-        showNewMemberModal.value=true
-    }
 
 
 
@@ -124,14 +157,13 @@
 
 
     onMounted(()=>{
-        executeGetTeamData().then((res:any)=>{
-            console.log('workspace',res.data)
+        executeGetTeamData({params:{company_id: 1}}).then((res:any)=>{
             workspaceTeamData.value = res.data
         })
     })
 
     const teamData = computed(()=>{
-        return workspaceTeamData.value[0]
+        return workspaceTeamData.value
     })
 
 
@@ -174,7 +206,6 @@
             } = deleteWorkspaceMember(staff.id);
 
             executeDeleteWorkspaceMember().then((res:any)=>{
-                console.log('brand',res)
                 if (deletingWorkspaceMemberIsSuccessful.value) {
                     AlertService.toast('success','Success',res.message)
                 }

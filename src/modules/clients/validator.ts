@@ -1,5 +1,5 @@
 import {ref, type Ref,computed} from 'vue'
-import { required, email, minLength, helpers, sameAs } from "@vuelidate/validators"
+import { required } from "@vuelidate/validators"
 import useValidate from "@vuelidate/core"
 import {BrandFormType,WorkspaceTeamType,NewProjectFormType} from './types'
 
@@ -64,10 +64,10 @@ export function validateNewProject() {
         title:'',
         description:'',
         dimensions:[{width:'',height:''}],
-        links:[{name:''}],
+        references:[{name:''}],
         colors:[],
         attachments:[],
-        brand:'',
+        brand:undefined,
         deliverables:[]
       })
 

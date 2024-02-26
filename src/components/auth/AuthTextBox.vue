@@ -7,11 +7,11 @@
                 :required="required"
                 :fieldId="fieldId"
                 :labelClass="labelClass"
-                class="my-auto"
+                class="my-auto mb-2"
             />
         </div>
 
-        <span class="position-relative d-flex mt-2">
+        <span class="position-relative d-flex">
             <textarea
                 :required="required"
                 :id="fieldId"
@@ -21,9 +21,10 @@
                 v-model="value" 
             ></textarea>
         </span>
-        <div :id="`${fieldId}-feedback`" class="invalid-feedback" v-if="errorMsg && showError">
+        <!-- <div :id="`${fieldId}-feedback`" class="invalid-feedback" v-if="errorMsg && showError">
             {{errorMsg}}.
-        </div> 
+        </div> -->
+        <ErrorMessage :id="fieldId" :msg="errorMsg"  v-if="errorMsg && showError"/>
     </div>
 </template>
 

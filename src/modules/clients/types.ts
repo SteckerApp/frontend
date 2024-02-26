@@ -22,9 +22,9 @@ export type NewProjectFormType = {
     title:string;
     description:string;
     dimensions:{width:string,height:string}[];
-    links:{name:string}[];
+    references:{name:string}[];
     colors:string[];
-    attachments:File[];
-    brand:any;
-    deliverables:any;
+    attachments:File[] | Array<Record<string, any>>;
+    brand:number|null|undefined;
+    deliverables:string[] | null;
 }

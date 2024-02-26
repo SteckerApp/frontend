@@ -6,6 +6,12 @@ export const PROJECT_STATUSES = {
     'completed':{title:'Completed', percentage:100},
 }
 
+export const NOTIFICATION_FREQUENCIES = [
+    {tag: 'never', title: 'Never', description: 'Don\'t send me emails'},
+    {tag: 'periodically', title: 'Periodically', description: 'Send me emails about once  an hour'},
+    {tag: 'instantly', title: 'Instantly', description: 'Send me emails as soon as possible'},
+]
+
 export const HEAR_ABOUT_US = [
     'Through a friend',
     'Linkedin',

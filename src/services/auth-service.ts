@@ -63,11 +63,6 @@ const AuthService = {
         const user = AuthService.getLoggedInUser()
         return user?.id || user?.token
     },
-    userCurrency: ():string => {
-        const user = AuthService.getLoggedInUser()
-        safeLog(user)
-        return user.currency=='naira' ? '₦' : '$'
-    },
 }
 
 export default AuthService

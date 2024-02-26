@@ -19,14 +19,15 @@
 <script lang="ts" setup>
     interface ColorTag{
         color:string, 
-        showDelete:boolean
-        tagClass:string
-        iconClass:string
+        showDelete?:boolean
+        tagClass?:string
+        iconClass?:string
     }
     // eslint-disable-next-line
     const props = withDefaults(defineProps<ColorTag>(), {
         tagClass: 'wpx-100 hpx-35 rounded-px-10 gilroy-medium fs-15 lh-18',
         iconClass: 'fs-12 ms-1',
+        showDelete: false
     })
     // eslint-disable-next-line
     const emits = defineEmits(['color:deleted'])

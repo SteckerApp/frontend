@@ -40,6 +40,7 @@
                 <div class="d-flex mb-1" v-for="(size,i) in form.dimensions" :key="i">
                     <div class="col-5 my-auto">
                         <AuthTextInput
+                            acceptNumberOnly
                             element-class="auth-element hpx-41 bg-blue-lt-1 rounded-0 border-blue-lt-1" 
                             placeholder="Width"
                             v-model="size.width"
@@ -48,6 +49,7 @@
                     <div class="col-1 my-auto gilroy-regular fs-20 ls-23 text-center">X</div>
                     <div class="col-5 my-auto">
                         <AuthTextInput
+                            acceptNumberOnly
                             element-class="auth-element hpx-41 bg-blue-lt-1 rounded-0 border-blue-lt-1" 
                             placeholder="Height"
                             v-model="size.height"
@@ -68,8 +70,8 @@
 
             
             <div class="mb-4">
-                <FormLabel label="Examples or Reference links (Optional)" labelClass="gilroy-medium fs-20 lh-23 text-black mb-1"/>
-                <div class="d-flex mb-1" v-for="(link,i) in form.links" :key="i">
+                <FormLabel label="Examples or Reference references (Optional)" labelClass="gilroy-medium fs-20 lh-23 text-black mb-1"/>
+                <div class="d-flex mb-1" v-for="(link,i) in form.references" :key="i">
                     <div class="col-11 my-auto">
                         <AuthTextInput
                             element-class="auth-element hpx-41 bg-blue-lt-1 rounded-0 border-blue-lt-1"
@@ -124,11 +126,18 @@
             <div class="mb-4">
                 <FormLabel label="Select brand" labelClass="gilroy-medium fs-20 lh-23 text-black" required/>
                 <div class="d-flex flex-column">
-                    <div class="perfect-center bg-blue text-white hpx-41 just rounded-px-3 mt-1 position-relative cursor-pointer">
+                    <div class="perfect-center bg-blue text-white hpx-41 just rounded-px-3 mt-1 position-relative cursor-pointer" @click="showBrands = !showBrands">
                         <span class="gilroy-regular fs-15 ls-18">Select your preferred brand</span>
                         <i class="material-icons ml-auto position-absolute end-0 me-2">expand_more</i>
                     </div>
-                    <div class="brand-list"></div>
+                    <div class="brand-list" v-if="showBrands">
+                        <div class="d-flex flex-column shadow rounded-bottom p-3" v-if="brands.length">
+                            <span class="text-blue-lt-5 mb-1 cursor-pointer" v-for="(brand, i) in brands" :key="i">{{brand.name}}</span>
+                        </div>
+                        <div class="d-flex flex-column shadow rounded-bottom p-3" v-else>
+                            <span class="text-blue-lt-5 mb-1 cursor-pointer">No available brand</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -150,7 +159,8 @@
                     <ColorTag 
                         v-for="(color, i) in form.colors" 
                         :key="i" 
-                        :color="color" 
+                        :color="color"
+                        :show-delete="true"
                     />
                 </div>
             </div>
@@ -278,6 +288,7 @@
     const showColorPicker = ref(false)
 
     const showDimensionList = ref(false)
+    const showBrands = ref(false)
     const currentTab = ref('social_media')
     const dimensionTabs = reactive([
         {title:'Recent',tag:'recent'},
@@ -310,6 +321,14 @@
         form.value.dimensions.splice(index,1) 
     }
 
+    const brands = reactive([
+        {name:'Brand 1'},
+        {name:'Brand 2'},
+        {name:'Brand 3'},
+        {name:'Brand 4'},
+        {name:'Brand 5'},
+    ])
+
     const deliverables = reactive([
         {name:'JPG',selected:false},
         {name:'PNG',selected:false},
@@ -331,10 +350,10 @@
 
 
     const addLink = ()=>{
-        form.value.links.push({name:''})
+        form.value.references.push({name:''})
     }
     const removeLink = (index:number)=>{
-        form.value.links.splice(index,1) 
+        form.value.references.splice(index,1) 
     }
 
 
@@ -345,7 +364,6 @@
         Array.from(files).forEach((file:File)=>{
             (form.value?.attachments as File[])?.push(file)
         })
-        console.log(form.value)
     }
     const handleDragOver = (evt:Event) =>{
         //console.log(evt)

@@ -7,11 +7,11 @@
                 :required="required"
                 :fieldId="fieldId"
                 :labelClass="labelClass"
-                class="my-auto"
+                class="my-auto mb-2"
             />
         </div>
 
-        <span class="position-relative d-flex mt-2">
+        <span class="position-relative d-flex">
             <input  
                 :id="fieldId"
                 :type="type" 
@@ -28,9 +28,10 @@
                 <span class="material-icons fs-15 checkCircle">check_circle</span>
             </span>
         </span>
-        <div :id="`${fieldId}-feedback`" class="invalid-feedback" v-if="errorMsg && showError">
+        <!-- <div :id="`${fieldId}-feedback`" class="invalid-feedback" v-if="errorMsg && showError">
             {{errorMsg}}.
-        </div> 
+        </div>  -->
+        <ErrorMessage :id="fieldId" :msg="errorMsg"  v-if="errorMsg && showError"/>
     </div>
 </template>
 
@@ -43,7 +44,7 @@
         id?: string,
         type?: "text" | "password" | "email" | "hidden" | "number" | "url";
         size?: "sm" | "lg";
-        modelValue:string;
+        modelValue:string|number;
         label?:string;
         required?:boolean;
         showCheckIcon?:boolean;

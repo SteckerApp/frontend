@@ -10,8 +10,11 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 const app = createApp(App);
+app.component('QuillEditor', QuillEditor);
 
 const directives = require.context(
     "./directives",
@@ -38,3 +41,4 @@ components.keys().forEach((fileName) => {
     app.component(componentName, componentConfig.default || componentConfig);
 });
 app.use(store).use(router).mount('#app')
+

@@ -2,9 +2,10 @@ import { createRouter,createWebHashHistory, createWebHistory, RouteRecordRaw } f
 import RouteService from '@/services/route-service'
 import HomeRoutes from '@/modules/home/routes';
 import AuthRoutes from '@/modules/auth/routes';
-import SubscriptionRoutes from '@/modules/subscription/routes'
+import SubscriptionRoutes from '@/modules/client-subscription/routes'
 import ClientRoutes from '@/modules/clients/routes'
-import AffiliateRoutes from '@/modules/affiliates/routes'
+import AffiliateRoutes from '@/modules/client-affiliates/routes'
+import SparkAdminRoutes from '@/modules/spark-admin/routes'
 import store from '../store';
 import {GetVisitorInfo} from './middleware'
 
@@ -15,6 +16,7 @@ const routes: RouteRecordRaw[] = [
   ...SubscriptionRoutes,
   ...ClientRoutes,
   ...AffiliateRoutes,
+  ...SparkAdminRoutes,
   //...RouteService.PrefixRoutesWith('/admin', AdminRoutes)
 ];
 
@@ -28,7 +30,7 @@ const globalMiddleware = {
   beforeAll: [GetVisitorInfo],
   afterAll: []
 };
-//RouteService.RunMiddlewareOnAllRoute(router, store, globalMiddleware);
-RouteService.RunMiddlewareOnAllRoute(router, store);
+//RouteService.RunMiddlewareBeforeEachRoutes(router, store, globalMiddleware);
+RouteService.RunMiddlewareBeforeEachRoutes(router, store);
 
 export default router

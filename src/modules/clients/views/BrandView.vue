@@ -268,7 +268,7 @@
     import {validateBrandForm} from '../validator'
     import * as HelperService from '@/services/helper-service'
     import * as AlertService from '@/services/alert-service'
-    import {getBOrWFomColor} from '../helpers'
+    import {getBOrWFomColor} from '@/globals/helpers'
 
 
     const brandsData = ref({} as any)

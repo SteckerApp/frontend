@@ -94,7 +94,7 @@ onMounted(()=>{
   })
 })
 
-watch(()=>modalProps.modelValue, async(newVal, oldVal)=>{
+watch(()=>modalProps.modelValue, async(newVal)=>{
   if(newVal){
     successModal.value?.click();
   }else{

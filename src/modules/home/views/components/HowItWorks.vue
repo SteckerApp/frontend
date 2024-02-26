@@ -1,27 +1,29 @@
 <template>
 
-    <div class="how d-flex flex-column">
+    <div class="how bg-blue-dk-1">
+        <div class="container">
+            <div class="title mx-auto mb-5 text-center text-white">Here is how it works</div>
 
-        <div class="bg-blue-dk-1 d-flex flex-column pypx-70 pxpx-150">
-            <div class="fs-60 lh-70 gilroy-medium text-center text-white mb-5">Here is how it works</div>
+            <div class="row justify-content-center">
 
-            <div class="d-flex flex-wrap mx-auto">
+                <div class="col-lg-4 col-md-6" v-for="(how, i) in howItWorks" :key="i">
 
-                <div class="d-flex flex-column bg-white rounded-px-30 wpx-280 me-3 mb-4 px-3 py-4" v-for="(how, i) in howItWorks" :key="i">
-                    <span class="wpx-100 hpx-100 perfect-center rounded-circle bg-blue-lt-1 text-blue-dk-1 mx-auto">
-                        <i class="material-icons fs-60">{{how.icon}}</i>
-                    </span>
-                    <div class="d-flex mt-5">
-                        <span class="fs-60 lh-70 gilroy-bold text-blue-dk-1 me-4">{{i+1}}.</span>
-                        <span class="fs-30 lh-35 gilroy-regular text-blue-dk-1">{{how.title}}</span>
+                <div class="how-card d-flex flex-column bg-white rounded-px-30 hpx-385 mb-4 mx-auto">
+                        <span class="wpx-100 hpx-100 perfect-center rounded-circle bg-blue-lt-1 text-blue-dk-1 mx-auto">
+                            <i class="material-icons fs-60">{{ how.icon }}</i>
+                        </span>
+                        <div class="d-flex mt-5">
+                            <span class="how-id text-blue-dk-1 me-3 mb-auto">{{ i + 1 }}.</span>
+                            <span class="how-title text-blue-dk-1 mb-auto">{{ how.title }}</span>
+                        </div>
+                        <div class="how-description text-blue-dk-1 mt-3">{{ how.description }}</div>
                     </div>
-                    <div class="fs-18 lh-21 gilroy-regular text-blue-dk-1 mt-3">{{how.description}}</div>
+
                 </div>
 
             </div>
-        </div>
 
-        <ChatNDemo/>
+        </div>
 
     </div>
 
@@ -29,7 +31,7 @@
 
 
 <script lang="ts" setup>
-    import ChatNDemo from './ChatNDemo'
+    import ChatNDemo from './ChatNDemo.vue'
     const howItWorks = [
         {
             icon: "edit_note", 
@@ -51,4 +53,69 @@
 
 
 <style lang="scss" scoped>
+
+.how{
+    padding-top: 150px;
+    padding-bottom: 150px;
+    &-card{
+        max-width: 356px;
+        padding: 2rem 3.5rem;
+    }
+    &-id{
+        font-size: 60px;
+        line-height: 60px;
+        font-family: gilroy-bold;
+    }
+    &-title{
+        font-size: 30px;
+        line-height: 31px;
+        font-family: gilroy-regular;
+    }
+    &-description{
+        font-size: 18px;
+        line-height: 20px;
+        font-family: gilroy-regular;
+    }
+}
+
+.title{
+    font-size: 60px;
+    font-family: gilroy-medium;
+}
+
+@media (max-width: 500px) {
+    .title{
+        font-size: 40px;
+        font-family: gilroy-bold;
+    }
+
+    .how{
+        &-card{
+            padding: 2rem 3rem;
+        }
+    }
+}
+
+
+@media (min-width: 600px) and (max-width: 900px){
+       .how{
+            &-card{
+                padding: 2rem 3rem;
+            }
+        }
+}
+@media (min-width: 992px) and (max-width: 1200px){
+       .how{
+            &-card{
+                padding: 2rem 1.5rem;
+            }
+        }
+}
+
+@media (min-width: 1200px) {
+    .how {
+        padding-left: 150px;
+        padding-right: 150px;
+    }
+}
 </style>

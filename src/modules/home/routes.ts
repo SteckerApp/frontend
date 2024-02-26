@@ -5,6 +5,7 @@ import WorksPage from './views/WorksPage.vue'
 import PricingPage from './views/PricingPage.vue'
 import BecomeAnAffiliate from './views/BecomeAnAffiliate.vue'
 import GetADemo from './views/GetADemo.vue'
+import TidalBooking from './views/TidalBooking.vue'
 import PrivacyPolicy from './views/PrivacyPolicy.vue'
 import TermsOfService from './views/TermsOfService.vue'
 import WatchDemoProcess from './views/WatchDemoProcess.vue'
@@ -40,6 +41,11 @@ const HomeRoutes: Array<RouteRecordRaw> = [
             path: '/get-a-demo',
             name: 'Home.GetADemo',
             component: GetADemo,
+        },
+        {
+            path: '/demo-booking',
+            name: 'Home.Booking',
+            component: TidalBooking,
         },
         {
             path: '/privacy-policy',

@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
     import { computed } from 'vue'
-    import {getTextColorFromName, getBgColorFromName,imageExists} from "@/services/helper-service"
+    import {getTextColorFromName, getBgColorFromName} from "@/services/helper-service"
     import useGlobals from "@/globals/composables"
 
     const {apiBaseUrl} = useGlobals()
@@ -38,9 +38,9 @@
     //const hasImage = computed(()=>props.src !== '' && imageExists(props.src, (exists:boolean) => exists)) //TODO: check why this does not work well
 
     const avatarSrc = computed(()=>{
-      const pat = /^https?:\/\//i;
+      const path = /^https?:\/\//i;
       if(hasImage.value){
-        return pat.test(props.src) ? props.src : apiBaseUrl.value+props.src
+        return path.test(props.src) ? encodeURI(props.src) : encodeURI(apiBaseUrl.value+props.src)
       }
       return ''
     })

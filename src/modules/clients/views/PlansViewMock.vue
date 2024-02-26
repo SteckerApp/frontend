@@ -6,9 +6,9 @@
             <div class="col col-lg-6 col-md-12 col-sm-12 col-xs-12">
 
                 <div class="d-flex flex-column hpx-336 ppx-25 hpx-160 mbpx-20 rounded-px-20 bg-blue">
-                    <span class="gilroy-regular fs-25 lh-29 text-white mb-4">Payment Method</span>
-                    <span class="gilroy-medium fs-50 lh-59 text-white mb-2">N250,000/mo</span>
-                    <span class="gilroy-regular fs-14 lh-16 text-white mb-5">Renews on  Nov. 2021 | Annual plan</span>
+                    <span class="gilroy-regular fs-25 lh-29 text-white mb-4">Your main plan</span>
+                    <span class="gilroy-medium fs-50 lh-59 text-white mb-2">Design basic</span>
+                    <span class="gilroy-regular fs-14 lh-16 text-white mb-5">Renews on  03  Nov. 2021 | N2,550,000 billed annually</span>
                     <div class="d-flex">
                         <FormButton label="Upgrade plan" class="hpx-35 border-0 me-2 my-auto rounded-px-8" variant="yellow" @click="updateSubscription=true"/>
                         <FormButton label="Cancel plan" class="hpx-35 me-2 my-auto rounded-px-8 border border-white" @click.prevent="cancelSubscription=true"/>
@@ -26,13 +26,20 @@
             <div class="col col-lg-6 col-md-12 col-sm-12 col-xs-12">
 
                 <div class="d-flex flex-column hpx-336 ppx-25 hpx-160 mbpx-20 rounded-px-20 bg-blue-lt-1 text-black">
-                    <span class="gilroy-medium fs-25 lh-29 text-black mb-4">What is included</span>
-                    <span class="gilroy-regular fs-16 lh-18 text-black mb-2 d-flex" v-for="(feature, i) in features" :key="i">
-                        <i class="material-icons me-2 fs-14 my-auto">check</i>
-                        <span class="my-auto">{{feature}}</span>
-                    </span>
-
-                    <FormButton label="Add other services" class="hpx-35 w-fit-content rounded-px-8 mt-4" @click.prevent="addServiceModal=true"/>
+                    <span class="gilroy-regular fs-25 lh-29 text-red-lt-6 mb-3">Your add-on plan</span>
+                    <div v-if="addedAddons.length">
+                      <div class="added-addons hpx-180 overflow-auto">
+                        <div class="mb-2 d-flex flex-column" v-for="(addon, i) in addedAddons" :key="i">
+                            <span class="gilroy-medium fs-30 lh-35">{{ addon?.title }}</span>
+                            <span class="gilroy-regular fs-14 lh-16 text-red-lt-6">Renews on  03  Nov. 2021 | ₦{{ addon?.price }} billed {{ addon?.type }}</span>
+                        </div>
+                      </div>
+                      <FormButton label="Cancel or add a new add-on plan" class="hpx-35 w-fit-content rounded-px-8 mt-4" @click.prevent="addServiceModal = true"/>
+                    </div>
+                    <div class="d-flex flex-column" v-else>
+                      <img class="mx-auto wpx-250" src="@/assets/img/clients/no-addon.svg" />
+                      <FormButton label="Add a new add-on plan" class="hpx-35 w-fit-content rounded-px-8 mt-4 mx-auto" @click.prevent="addServiceModal = true"/>
+                    </div>
                 
                 </div>
 
@@ -49,7 +56,7 @@
             <div class="d-flex justify-content-between flex-wrap">
                 <div class="col col-lg-6 col-md-12 col-sm-12 col-xs-12 my-auto d-flex ps-0">
                     <span class="wpx-87 hpx-58 border rounded-px-6 my-auto perfect-center">
-                        <img src="@/assets/img/clients/visacard.svg" class="wpx-68 hpx-38"/>
+                        <img src="@/assets/img/clients/visa.svg" class="wpx-68 hpx-38"/>
                     </span>
                     <span class="gilroy-medium fs-16 lh-19 my-auto ms-3">Visa ending in 2255</span>
                 </div>
@@ -102,36 +109,40 @@
     <ModalBox 
         class="h-100" 
         v-model="addServiceModal" 
-        :staticBackDrop="false"
-        modalContentClass="rounded-px-20"
+        modalContentClass="rounded-0"
         modal-custom-class="add-services-class" modalSize="modal-lg" modalWidth="980px"
         @modal:closed="addServiceModal = false" :modalId="`modal-add-${Date.now()}`"
       >
       <template #default>
-        <div class="d-flex flex-wrap p-5">
+        <div class="d-flex flex-column">
+          <div class="gilroy-medium text-center fs-40 lh-47 mt-2">Choose your preferred add-on plan</div>
+            <span class="material-icons fs-22 lh-23 fw-900 position-absolute top-0 end-0 me-5 mtpx-35 cursor-pointer opacity-50" @click="addServiceModal=false">close</span>
+            <div class="d-flex flex-wrap p-5">
 
-        <div class="d-flex flex-column wpx-385 h-min-150 bg-secondary-lt-5 rounded-px-10 ppx-16 text-blue-dk-1 my-3 mx-3" v-for="(service,i) in services" :key="i">
-          <span class="fs-24 lh-28 gilroy-medium mb-2">{{service.title}}</span>
-          <span class="fs-15 lh-18 gilroy-regular mb-4 text-wrap">{{service.description}}</span>
-          
-          <div class="d-flex" :class="service.requestable ? 'justify-content-end' : 'justify-content-between'">
-            <div class="d-flex plan-font gilroy-regular my-auto" v-if="!service.requestable">
-              <span class="fs-12 mt-auto lh-19 fw-400 text-black plan-font gilroy-regular">₦</span>
-              <span class="fs-20 lh-23 text-black plan-font gilroy-bold">{{service.price}}</span>
-              <span class="fs-12 mt-auto lh-19 fw-400 text-black plan-font gilroy-regular">/{{service.type}}</span>
+            <div class="d-flex flex-column wpx-385 h-min-150 bg-secondary-lt-5 rounded-px-10 ppx-16 text-blue-dk-1 my-3 mx-3" v-for="(service,i) in availableAddons" :key="i">
+              <span class="fs-24 lh-28 gilroy-medium mb-2">{{service.title}}</span>
+              <span class="fs-15 lh-18 gilroy-regular mb-4 text-wrap">{{service.description}}</span>
+              
+              <div class="d-flex" :class="service.requestable ? 'justify-content-end' : 'justify-content-between'">
+                <div class="d-flex plan-font gilroy-regular my-auto" v-if="!service.requestable && !service.subscription_added">
+                  <span class="fs-12 mt-auto lh-19 fw-400 text-black plan-font gilroy-regular">₦</span>
+                  <span class="fs-20 lh-23 text-black plan-font gilroy-bold">{{service.price}}</span>
+                  <span class="fs-12 mt-auto lh-19 fw-400 text-black plan-font gilroy-regular">/{{service.type}}</span>
+                </div>
+                <div class="d-flex plan-font gilroy-regular my-auto" v-if="service.subscription_added">
+                  <span class="fs-12 mt-auto lh-19 fw-400 text-black plan-font gilroy-regular">Renews on: </span>
+                  <span class="fs-12 my-auto lh-19 text-black plan-font gilroy-bold ms-1">22 Nov, 2021</span>
+                </div>
+                <FormButton v-if="!service.requestable && !service.subscription_added" label="Add Plan" class="px-2 hpx-35 my-auto rounded-px-10" size="sm" buttonType="outline"/>
+                <FormButton v-else-if="service.requestable" label="Request a brief" class="px-2 hpx-35 my-auto rounded-px-10" size="sm" buttonType="outline"/>
+                <FormButton v-else label="Cancel Plan" variant="yellow" class="px-2 hpx-35 my-auto rounded-px-10" size="sm"/>
+              </div>
+
             </div>
-            <!-- <FormButton v-if="!service.requestable && !service.subscription_added" label="Add subscription" class="px-2 hpx-35 my-auto rounded-px-10" size="sm" buttonType="outline" @click="subscribeToService(service)"/>
-            <FormButton v-else-if="service.requestable" label="Request a brief" class="px-2 hpx-35 my-auto rounded-px-10" size="sm" buttonType="outline" @click="requestBriefOnService(service)"/>
-            <FormButton v-else label="Added" class="px-2 hpx-35 my-auto rounded-px-10" size="sm"/> -->
-            <FormButton v-if="!service.requestable && !service.subscription_added" label="Add subscription" class="px-2 hpx-35 my-auto rounded-px-10" size="sm" buttonType="outline"/>
-            <FormButton v-else-if="service.requestable" label="Request a brief" class="px-2 hpx-35 my-auto rounded-px-10" size="sm" buttonType="outline"/>
-            <FormButton v-else label="Added" class="px-2 hpx-35 my-auto rounded-px-10" size="sm"/>
+
+                
+            </div>
           </div>
-
-        </div>
-
-            
-        </div>
       </template>
       </ModalBox>
 
@@ -159,7 +170,7 @@
                 Your monthly subscription is not due until <b>May 10, 2020.</b> If you would like to proceed with canceling your subscription, please select <b>"Cancel Subscription"</b> below.
             </span>
             <div class="d-flex mt-5">
-                <FormButton label="Don’t cancel subscription" class="px-5 hpx-53 my-auto rounded-0"/>
+                <FormButton label="Don’t cancel subscription" class="px-5 hpx-53 my-auto rounded-0" @click="cancelSubscription=false"/>
                 <FormButton label="Cancel subscription" class="ms-3 px-5 hpx-53 my-auto rounded-0" buttonType="outline" @click.prevent="cancelSubscription = false"/>
             </div>
             
@@ -195,11 +206,11 @@
     import {validateNewWorkspaceMember} from '../validator'
     import * as HelperService from '@/services/helper-service'
     import * as AlertService from '@/services/alert-service'
-    import PlansComponent from '@/modules/subscription/views/components/PlansComponent.vue'
+    import PlansComponent from '@/modules/client-subscription/views/components/PlansComponent.vue'
 
 
     const planData = ref({} as any)
-    const features = [
+    const addons = [
         'Unlimited graphics design',
         'Unlimited logo & branding',
         'Unlimited brand',
@@ -213,7 +224,7 @@
     const addServiceModal = ref(false)
     const services = [
     {
-      title:'Social media management',
+      title:'Social media management1',
       description:'Need help with your online presence? This is for you!',
       default:false,
       discounted:null,
@@ -225,11 +236,35 @@
       cancelable:true,
     },
     {
-      title:'Copywriting',
+      title:'Copywriting1',
       description:'Need help with your online presence? This is for you!',
       default:false,
       discounted:null,
       price:'20,000',
+      type:'monthly',
+      unit:1,
+      subscription_added:true,
+      requestable:false,
+      cancelable:true,
+    },
+    {
+      title:'Website design1',
+      description:'Need a functioning business website? We can help you!',
+      default:false,
+      discounted:null,
+      price:null,
+      type:'monthly',
+      unit:1,
+      subscription_added:false,
+      requestable:true,
+      cancelable:true,
+    },
+    {
+      title:'Social media management2',
+      description:'Need help with your online presence? This is for you!',
+      default:false,
+      discounted:null,
+      price:'30,000',
       type:'monthly',
       unit:1,
       subscription_added:false,
@@ -237,7 +272,55 @@
       cancelable:true,
     },
     {
-      title:'Website design',
+      title:'Copywriting2',
+      description:'Need help with your online presence? This is for you!',
+      default:false,
+      discounted:null,
+      price:'20,000',
+      type:'monthly',
+      unit:1,
+      subscription_added:true,
+      requestable:false,
+      cancelable:true,
+    },
+    {
+      title:'Website design2',
+      description:'Need a functioning business website? We can help you!',
+      default:false,
+      discounted:null,
+      price:null,
+      type:'monthly',
+      unit:1,
+      subscription_added:false,
+      requestable:true,
+      cancelable:true,
+    },
+    {
+      title:'Social media management3',
+      description:'Need help with your online presence? This is for you!',
+      default:false,
+      discounted:null,
+      price:'30,000',
+      type:'monthly',
+      unit:1,
+      subscription_added:false,
+      requestable:false,
+      cancelable:true,
+    },
+    {
+      title:'Copywriting3',
+      description:'Need help with your online presence? This is for you!',
+      default:false,
+      discounted:null,
+      price:'20,000',
+      type:'monthly',
+      unit:1,
+      subscription_added:true,
+      requestable:false,
+      cancelable:true,
+    },
+    {
+      title:'Website design3',
       description:'Need a functioning business website? We can help you!',
       default:false,
       discounted:null,
@@ -249,6 +332,18 @@
       cancelable:true,
     },
   ]
+
+  const availableAddons = computed(()=>{
+    let addons = services
+    // Sort services to make sure already added services are listed below
+    addons.sort((a) => a.subscription_added ? 1 : -1)
+    return addons
+  })
+  const addedAddons = computed(()=>{
+    //return []
+    let addons = services.filter((service) => service.subscription_added)
+    return addons
+  })
 
 
 let allPlansItems = [

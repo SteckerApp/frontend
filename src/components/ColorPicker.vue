@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 
-    import {type Ref,ref,reactive, onMounted,computed} from 'vue'
+    import {type Ref,ref} from 'vue'
     import { ColorPicker } from 'vue-accessible-color-picker'
     import { debounce } from 'lodash-es';
     import useGlobals from '@/globals/composables'

@@ -15,18 +15,25 @@
         :errorMsg="errorMsg"
         :showError="false"
       />
+      <!-- <button
+        v-if="togglePassword"
+        class="toggleBtn btn btn-circle btn-default position-absolute z-1"
+        @mousedown="toggle = !toggle" @mouseup="toggle = !toggle"
+        type="button"
+      > -->
       <button
         v-if="togglePassword"
-        class="toggleBtn btn btn-circle btn-default position-absolute"
-        @mousedown="toggle = !toggle" @mouseup="toggle = !toggle"
+        class="toggleBtn btn btn-circle btn-default position-absolute z-1"
+        @click="toggle = !toggle"
         type="button"
       >
         <span class="material-icons medium text-primary-lt-1 mt-n1 position-relative">{{toggle ? 'visibility' : 'visibility_off'}}</span>
       </button>
     </div>
-    <div :id="`password-${Math.floor(Math.random() * 100)}-feedback`" class="invalid-feedback" v-if="errorMsg">
+    <!-- <div :id="`password-${Math.floor(Math.random() * 100)}-feedback`" class="invalid-feedback" v-if="errorMsg">
         {{errorMsg}}.
-    </div>
+    </div> -->
+    <ErrorMessage :id="`password-${Math.floor(Math.random() * 100)}-feedback`" :msg="errorMsg"  v-if="errorMsg"/>
   </section>
 </template>
 

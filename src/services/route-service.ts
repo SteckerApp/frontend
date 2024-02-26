@@ -51,7 +51,7 @@ function _nextFactory(args:FactoryArgs) {
 
 // On any route - to be used with beforeEnter
 const RouteMultiGuard = function(guards:Array<Middleware> | Middleware, store:any){
-  const middleware = Array.isArray(guards) ? guards: [guards];
+  const middleware = Array.isArray(guards) ? guards : [guards];
 
   return (to: RouteLocationNormalized, from: RouteLocationNormalized, next:NavigationGuardNext) => {
     const context = {store,from,to,next};
@@ -63,7 +63,7 @@ const RouteMultiGuard = function(guards:Array<Middleware> | Middleware, store:an
 }
 
 //On all routes
-const  RunMiddlewareOnAllRoute = function (router:Router,store:any, allRouteMiddleware?:GlobalMiddleware){
+const  RunMiddlewareBeforeEachRoutes = function (router:Router,store:any, allRouteMiddleware?:GlobalMiddleware){
     router.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalized, next:NavigationGuardNext) => {
         if (to.meta.middleware || allRouteMiddleware) {
 
@@ -123,5 +123,5 @@ export default {
   PrefixRoutesWith,
   RouteMultiGuard,
   AppendRouteMiddlewareWith,
-  RunMiddlewareOnAllRoute
+  RunMiddlewareBeforeEachRoutes
 }

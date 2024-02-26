@@ -143,7 +143,7 @@ export default abstract class HTTPBaseService {
         if (error.response?.status === 401) {
           AuthService.logOut()
           AlertService.toast('error', 'Error', 'Your session has expired, you need to sign in again.');
-          //setTimeout(() => {location.href = this.loginUrl as string }, 1000)
+          setTimeout(() => {location.href = this.loginUrl as string }, 1000)
         }
         return Promise.reject(error.response);
     }

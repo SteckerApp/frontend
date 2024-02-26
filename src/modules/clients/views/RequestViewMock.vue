@@ -60,7 +60,7 @@
             @modal:closed="showProjectDetailsModal=false" :modalId="`modal-chat-${Date.now()}`"
         >
             <template #default>
-                <ProjectDetails 
+                <ProjectDetailsMock 
                     :projectDetails="projectDetails"
                     :workspaceMembers="workspaceMembers"
                     @close:project:details="showProjectDetailsModal=false"
@@ -74,14 +74,13 @@
 
 
 <script lang="ts" setup>
-    import {getWorkspaceTeam,addWorkspaceMember,deleteWorkspaceMember} from '../services'
     import {ref,reactive, onMounted,computed} from 'vue'
     import {validateNewWorkspaceMember} from '../validator'
     import * as HelperService from '@/services/helper-service'
     import * as AlertService from '@/services/alert-service'
     import {useRouter} from 'vue-router'
     import Draggable from "vue3-draggable";
-    import ProjectDetails from './components/ProjectDetails.vue'
+    import ProjectDetailsMock from './components/ProjectDetailsMock.vue'
 
     const router = useRouter()
 
@@ -107,10 +106,11 @@
         deliverables: ['Jpg', 'Png', 'Adobe'],
         colors: ['#235eb7','#2d3c53'],
         users: [
-            {id:1, name: 'Jame Johnson', avatar:'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80'},
-            {id:2, name: 'Waltz Walemon', avatar:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60'},
-            {id:5, name: 'Titus Thomas', avatar:'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80'},
-            {id:7, name: 'David Dane', avatar:'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80'},
+            {id:1, name: 'Jame Johnson', avatar: tempUserImages.user1 },
+            {id:2, name: 'Waltz Walemon', avatar: tempUserImages.user2 },
+            {id:3, name: 'Waltz Walemon', avatar: tempUserImages.user3},
+            {id:5, name: 'Titus Thomas', avatar: tempUserImages.user5 },
+            {id:7, name: 'David Dane', avatar: tempUserImages.user7 },
         ],
         attachments: [
             {title: 'Design File', file: 'path/to/design.png', created_at: '12, June, 2022 at 08:28pm'},
@@ -124,13 +124,13 @@
     }
 
     const workspaceMembers = [
-        {id:1, name: 'Jame Johnson', avatar:'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80'},
-        {id:2, name: 'Waltz Walemon', avatar:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60'},
-        {id:3, name: 'Sarah Song', avatar:'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60'},
-        {id:4, name: 'Borne Banabas', avatar:'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80'},
-        {id:5, name: 'Titus Thomas', avatar:'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80'},
-        {id:6, name: 'Carl Carrison', avatar:'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80'},
-        {id:7, name: 'David Dane', avatar:'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80'},
+        {id:1, name: 'Jame Johnson', avatar: tempUserImages.user1 },
+        {id:2, name: 'Waltz Walemon', avatar: tempUserImages.user2 },
+        {id:3, name: 'Sarah Song', avatar: tempUserImages.user3 },
+        {id:4, name: 'Borne Banabas', avatar: tempUserImages.user4 },
+        {id:5, name: 'Titus Thomas', avatar: tempUserImages.user5 },
+        {id:6, name: 'Carl Carrison', avatar: tempUserImages.user6 },
+        {id:7, name: 'David Dane', avatar: tempUserImages.user7 },
     ]
 
     const items = ref([1,2,3,4,5])

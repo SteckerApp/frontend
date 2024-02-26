@@ -6,3 +6,5 @@ declare module '*.vue' {
 }
 
 declare module 'vue3-draggable';
+declare module 'vue3-paystack';
+declare module 'vue-html-to-paper';

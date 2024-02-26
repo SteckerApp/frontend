@@ -20,19 +20,24 @@
                                 required 
                                 label="Full name" 
                                 placeholder="Enter your name here" 
+                                v-model="form.full_name"
+                                :error-msg="serverError.full_name?.[0]"
                             />
                         </div>
                         <div class="mb-3">
                             <AuthTextInput 
+                                acceptNumberOnly
                                 element-class="auth-element hpx-50 rounded-0" 
                                 required 
                                 label="Mobile number" 
                                 placeholder="Enter mobile number" 
+                                v-model="form.mobile_no"
+                                :error-msg="serverError.mobile_no?.[0]"
                             />
                         </div>
                         <div class="d-flex">
                             <FormButton label="No, thanks" class="hpx-40 rounded-0 px-4 me-3" buttonType="outline" @click="emits('modal:closed', true)"/>
-                            <FormButton label="Yes, call me" class="hpx-40 rounded-0 px-4" />
+                            <FormButton label="Yes, call me" class="hpx-40 rounded-0 px-4" @click="bookTheCall" />
                         </div>
                     </div>
                 </div>
@@ -41,7 +46,11 @@
 </template>
 
 <script lang="ts" setup>
-    import { computed } from "vue"
+    import { computed, ref } from "vue"
+    import { bookACall } from '../service'
+    import * as AlertService from "@/services/alert-service"
+    import * as HelperService from "@/services/helper-service"
+
     //eslint-disable-next-line
     const emits = defineEmits(['modal:closed'])
     //eslint-disable-next-line
@@ -55,6 +64,30 @@
             emits('modal:closed', true)
         }
     })
+
+const form = ref({
+    full_name:'',
+    mobile_no:'',
+})
+
+const {
+    //isLoading: bookACallIsLoading,
+    error: bookACallError,
+    isSuccessful: bookACallIsSuccessful,
+    execute: executeBookACall,
+} = bookACall(form.value);
+
+const bookTheCall = () =>{
+    executeBookACall().then((res:any)=>{
+        if (bookACallIsSuccessful.value) {
+            AlertService.toast('success','Success',res.message)
+            emits('modal:closed', true)
+        }
+    })
+}
+const serverError = computed(() => {
+  return HelperService.getObjectProperty(bookACallError, "value.errors", {});
+});
 </script>
 
 <style lang="scss" scoped>

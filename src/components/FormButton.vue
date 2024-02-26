@@ -12,7 +12,7 @@
 
 
 <script lang="ts" setup>
-import {ref, computed} from 'vue';
+import {computed} from 'vue';
 interface buttonPropInterface{
     label:string,
     buttonType?: "default" | "outline"
@@ -43,7 +43,9 @@ const classes = computed(()=>{
         'fs-15 lh-19 bg-white border-blue text-blue':buttonProps.buttonType =='outline' && buttonProps.variant == 'blue' && !buttonProps.disabled,
         'disabled 15 lh-18 bg-blue-lt-3 border-0 text-blue-dk-2':buttonProps.disabled,
         active:buttonProps.active,
-    } : {}
+    } : {
+        btn: true,
+    }
 })
 </script>
 

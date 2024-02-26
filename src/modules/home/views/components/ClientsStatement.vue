@@ -1,47 +1,54 @@
 <template>
-    <div class="d-flex flex-column py-4 my-5 position-relative">
-    <span class="fs-60 lh-70 gilroy-medium mx-auto mb-5">What Our Clients Say About Us</span>
-    <div class="px-5 position-relative">
-        <Carousel :wrap-around="true" :breakpoints="breakpoints" :autoplay="5000">
-            
-            <Slide v-for="slide in slides" :key="slide.id">
-                    <div class="carousel__item">
-                        
-                        <div class="me-3 bg-blue-lt-9 rounded-px-20 p-5">
+    <div class="client-statement my-5">
+        <div class="container">
+            <div class="title mx-auto mb-3 text-center">What Our Clients Say About Us</div>
 
-                            <div class="d-flex flex-column">
-                                <div class="d-flex justify-content-between mb-4">
-                                    <div class="d-flex mb-auto">
-                                        <UserAvatar 
-                                            class="my-auto"
-                                            size="47" 
-                                            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80"
-                                        />
-                                        <div class="d-flex flex-column ms-3">
-                                            <span class="gilroy-medium fs-20 lh-23 mb-2">{{slide.name}}</span>
-                                            <span class="gilroy-regular fs-13 lh-15">{{slide.position}}</span>
+            <div class="d-flex flex-column py-4 my-5 position-relative">
+        <div class="ps-sm-4 position-relative">
+            <div class="position-relative z-1">
+            <Carousel :wrap-around="true" :breakpoints="breakpoints" :autoplay="5000">
+            
+                <Slide v-for="slide in slides" :key="slide.id">
+                        <div class="carousel__item w-100">
+                        
+                            <div class="me-3 bg-blue-lt-9 rounded-px-20 p-5">
+
+                                <div class="d-flex flex-column">
+                                    <div class="d-flex justify-content-between mb-4">
+                                        <div class="d-flex mb-auto">
+                                            <UserAvatar 
+                                                class="my-auto"
+                                                size="47" 
+                                                :src="slide?.user?.avatar"
+                                            />
+                                            <div class="d-flex flex-column ms-3">
+                                                <span class="gilroy-medium fs-20 lh-23 mb-2">{{ slide.name }}</span>
+                                                <span class="gilroy-regular fs-13 lh-15 text-start">{{ slide.position }}</span>
+                                            </div>
                                         </div>
+                                        <i class="material-icons-outlined mb-auto">format_quote</i>
                                     </div>
-                                    <i class="material-icons-outlined mb-auto">format_quote</i>
+                                    <div class="gilroy-medium fs-20 lh-23 text-start mt-3 hpx-100 overflow-scroll">
+                                        {{ slide.comment }}
+                                    </div>
                                 </div>
-                                <div class="gilroy-medium fs-20 lh-23 text-start mt-3 hpx-100 overflow-scroll">
-                                    {{slide.comment}}
-                                </div>
+
                             </div>
 
                         </div>
+                    </Slide>
+                <template #addons>
+                    <!-- <Navigation /> -->
+                    <Pagination />
+                </template>
+            </Carousel>
+            </div>
+            <img src="@/assets/img/home/our-clients.svg" alt="" class="our-client position-absolute"/>
+        </div>
+        </div>
 
-                    </div>
-                </Slide>
-            <template #addons>
-                <!-- <Navigation /> -->
-                <Pagination />
-            </template>
-        </Carousel>
-        <img src="@/assets/img/home/our-clients.svg" alt="" class="our-client position-absolute"/>
+        </div>
     </div>
-    </div>
-
 </template>
 
 
@@ -54,9 +61,20 @@
         name:string;
         position:string;
         comment:string;
+        user?:any;
     }
     //eslint-disable-next-line
     const props = defineProps<{slides: SlideProp[]}>()
+
+    // const slidess: SlideProp = [
+    //     {id: 1, name: "Adeola Oladele", position: "Permanent Secretary", comment: "This is my comments This is my comments This is my comments This is my comments This is my comments This is my comments This is my comments"},
+    //     {id: 1, name: "Adeola Oladele", position: "Permanent Secretary", comment: "This is my comments This is my comments This is my comments This is my comments This is my comments This is my comments This is my comments"},
+    //     {id: 1, name: "Adeola Oladele", position: "Permanent Secretary", comment: "This is my comments This is my comments This is my comments This is my comments This is my comments This is my comments This is my comments"},
+    //     {id: 1, name: "Adeola Oladele", position: "Permanent Secretary", comment: "This is my comments This is my comments This is my comments This is my comments This is my comments This is my comments This is my comments"},
+    //     {id: 1, name: "Adeola Oladele", position: "Permanent Secretary", comment: "This is my comments This is my comments This is my comments This is my comments This is my comments This is my comments This is my comments"},
+    //     {id: 1, name: "Adeola Oladele", position: "Permanent Secretary", comment: "This is my comments This is my comments This is my comments This is my comments This is my comments This is my comments This is my comments"},
+    //     {id: 1, name: "Adeola Oladele", position: "Permanent Secretary", comment: "This is my comments This is my comments This is my comments This is my comments This is my comments This is my comments This is my comments"},
+    // ];
 
     const breakpoints = {
         // 700px and up
@@ -75,7 +93,6 @@
 
 <style lang="scss" scoped>
     .our-client{
-        z-index: -1;
         top: -100px;
     }
     ::v-deep(.carousel__pagination-button){
@@ -91,6 +108,24 @@
             &:after{
                 background:#1227E2;
             }
+        }
+    }
+
+    .title{
+        font-size: 60px;
+        font-family: gilroy-medium;
+    }
+
+    @media (max-width: 500px) {
+        .title{
+            font-size: 30px;
+            font-family: gilroy-bold;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .client-statement {
+            padding: 70px 150px
         }
     }
 </style>
