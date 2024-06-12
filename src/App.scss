@@ -1,0 +1,25 @@
+// Bootstrap 5
+$enable-negative-margins: true;
+@import "./scss/bootstrap-modifier";
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+@font-face {
+    font-family: "Gilroy-Medium";
+    src: local("Gilroy-Medium"), url(@/assets/fonts/Gilroy-Medium.woff) format("woff"), url(@/assets/fonts/Gilroy-Medium.woff2) format("woff2"),
+}
+@font-face {
+    font-family: "Gilroy-Regular";
+    src: local("Gilroy-Regular"), url(@/assets/fonts/Gilroy-Regular.woff) format("woff"), url(@/assets/fonts/Gilroy-Regular.woff2) format("woff2"),
+}
+@font-face {
+    font-family: "Gilroy-Bold";
+    src: local("Gilroy-Bold"), url(@/assets/fonts/Gilroy-Bold.woff) format("woff"), url(@/assets/fonts/Gilroy-Bold.woff2) format("woff2"),
+}
+/* html, body {
+    min-height: 100%;
+} */
+// My Custom class
+@import "./scss/custom";
+
+
