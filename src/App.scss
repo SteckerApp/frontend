@@ -20,6 +20,11 @@ $enable-negative-margins: true;
     min-height: 100%;
 } */
 // My Custom class
+
+*{
+    scrollbar-width: none;
+    scroll-snap-type: both mandatory
+}
 @import "./scss/custom";
 
 
