@@ -3,7 +3,7 @@
 
 <div class="auth-page container">
   <div class="page-container row d-flex align-item-center">
-    <div class="authContainer col-sm-12 col-md-11 bg-white my-auto mx-auto">
+    <div class="authContainer col-sm-12 col-md-11 bg-white my-auto mx-auto animate__animated animate__fadeInUp animate__delay-32s animate__faster">
 
       <div class="d-flex flex-column">
         <span class="title text-black text-center">Complete your company profile!</span>

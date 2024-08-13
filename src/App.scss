@@ -93,7 +93,37 @@ $enable-negative-margins: true;
   -o-transform: scale(1.2)
 }
 
+.fade-in {
+  opacity: 0;
+  transform: opacity 250ms ease-in-out;
+}
 
+ 
+.appear {
+  opacity: 1;
+}
+
+.linksHoverYellow {
+  background: var(--spa-color-yellow);
+  color: var(--spa-color-black)
+}
+
+.linksHoverYellow:hover {
+  background: var(--spa-color-white);
+  color: var(--spa-color-blue)
+}
+
+.linksHover {
+  background: var(--spa-color-blue);
+  color: var(--spa-color-white)
+}
+
+
+.linksHover:hover {
+  background: var(--spa-color-white);
+  color: var(--spa-color-blue);
+  border: 1.5px solid var(--spa-color-blue)
+}
 
 
 @keyframes animate-in {

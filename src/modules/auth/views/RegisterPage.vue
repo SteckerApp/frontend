@@ -4,7 +4,7 @@
       
         <div class="row d-flex align-item-center">
 
-            <div class="authContainer col-sm-12  col-lg-8 col-xl-7 bg-white my-auto mx-auto">
+            <div class="authContainer col-sm-12  col-lg-8 col-xl-7 bg-white my-auto mx-auto  animate__animated animate__fadeInUp animate__delay-32s animate__faster ">
 
                 <div class="d-flex flex-column">
                   <span class="title text-black">Create an account</span>
@@ -43,7 +43,7 @@
                   <FormButton :label='registrationIsLoading ? "loading" : "Next"' class="mt-3 h-min-50"  @click="handleSubmission"/>
                   <AuthSocialLogin/>
 
-                  <div class="d-inline-block mt-4 ps-4 ms-2">
+                  <div class="d-flex justify-content-center align-item-center mt-4 ps-4 ">
                     <span class="autLinkText gilroy-regular me-2 my-auto">Already have an account?</span>
                     <a href="/login"><span class="my-auto text-blue fs-15 lh-19 fw-bold">Sign in</span></a>
                   </div>

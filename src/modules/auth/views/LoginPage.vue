@@ -3,7 +3,7 @@
     <div class="auth-page container">
       
       <div class="row d-flex align-item-center">
-        <div class="authContainer col-sm-12  col-lg-8 col-xl-7 bg-white my-auto mx-auto">
+        <div class="authContainer col-sm-12  col-lg-8 col-xl-7 bg-white my-auto mx-auto animate__animated animate__fadeInUp animate__delay-32s animate__faster ">
         
             <div class="d-flex flex-column" v-if="showUserAccounts">
               <span class="title gilroy-medium text-black mb-5">Choose or Add another account</span>

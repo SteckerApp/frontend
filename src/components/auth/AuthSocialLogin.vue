@@ -5,7 +5,7 @@
         <hr class="w-44 authDivider my-auto"/>
       </div>
       <div class="d-flex justify-content-center socialLogin gilroy-regular">
-        <span class="fs-16 lh-19 my-auto me-3">Login using</span>
+        <span class="fs-16 lh-19 my-auto me-2">Login using</span>
         <img src="@/assets/img/social-icons/Gmail.svg" class="wpx-35 hpx-35 cursor-pointer me-2"/>
         <img src="@/assets/img/social-icons/Microsoft.svg" class="wpx-40 hpx-40 my-auto cursor-pointer"/>
         <img src="@/assets/img/social-icons/Yahoo.svg" class="wpx-40 hpx-40 my-auto cursor-pointer"/>

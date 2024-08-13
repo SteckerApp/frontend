@@ -36,7 +36,7 @@ const classes = computed(()=>{
         'gilroy-regular':true,
         btn:true,
         [`btn-${buttonProps.size}`]:buttonProps.size != 'default',
-        'fs-15 lh-19 bg-blue text-white': buttonProps.buttonType == "default" && buttonProps.variant == 'blue' && !buttonProps.disabled,
+        'fs-15 lh-19 linksHover': buttonProps.buttonType == "default" && buttonProps.variant == 'blue' && !buttonProps.disabled,
         'fs-15 lh-19 bg-yellow text-black': buttonProps.buttonType == "default" && buttonProps.variant == 'yellow' && !buttonProps.disabled,
         'fs-15 lh-19 bg-blue-dk-1 text-white': buttonProps.buttonType == "default" && buttonProps.variant == 'dark' && !buttonProps.disabled,
         'fs-15 lh-19 bg-blue-lt-1 text-blue': buttonProps.buttonType == "default" && buttonProps.variant == 'light' && !buttonProps.disabled,

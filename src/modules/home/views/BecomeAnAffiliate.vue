@@ -1,8 +1,8 @@
 <template>
     <div class="affiliate bg-blue-dk-3">
 
-        <div class="intro mx-0">
-                <div class="position-relative">
+        <div class="intro mx-0 animate__animated animate__fadeInUp animate__delay-32s animate__slower ">
+                <div class="position-relative ">
                     <img src="@/assets/img/home/affiliate/coin-1.svg" alt="" class="intro-image position-absolute start-0"/>
                     <div class="row justify-content-center">
                         <div class="left col-lg-6 order-1 order-lg-1 d-flex">
@@ -12,12 +12,12 @@
                                 <div class="links d-flex mt-3">
                                     <router-link
                                         to="/register/affiliate" 
-                                        class="perfect-center text-decoration-none fs-15 lh-19 gilroy-medium text-white bg-blue hpx-46 px-4 me-3 rounded-px-8 position-relative z-1"
+                                        class='perfect-center linksHover text-decoration-none fs-15 lh-19 gilroy-medium  hpx-46 px-4 me-3 rounded-px-8 position-relative z-1'
                                     >Apply now
                                     </router-link>
                                     <router-link
                                         to="/login" 
-                                        class="perfect-center text-decoration-none fs-15 lh-19 gilroy-medium text-black bg-yellow hpx-46 px-4 me-3 rounded-px-8 position-relative z-1"
+                                        class='perfect-center linksHoverYellow text-decoration-none fs-15 lh-19 gilroy-medium hpx-46 px-4 me-3 rounded-px-8 position-relative z-1'
                                     >Affiliate login
                                     </router-link>
                                 </div>
@@ -30,16 +30,16 @@
             </div>
         </div>
 
-        <div class="extra container-fluid position-relative d-flex flex-column align-items-center">
+        <div class="extra container-fluid position-relative d-flex flex-column align-items-center animate__animated animate__fadeInUp animate__delay-4s animate__slower ">
             <img src="@/assets/img/home/affiliate/coin-2.svg" alt="" class="position-absolute end-0 bottom-0 pbpx-100 z-n1"/>
 
             <div class="title mx-auto mt-5 text-center text-white">Extra Income for Everyone</div>
 
-                <div class="row g-5 justify-content-center position-relative z-1">
+                <div class="row g-5 justify-content-center position-relative z-1 ">
 
-                    <div class="item col-lg-4 col-md-6 col-sm-12 mb-4 d-flex justify-content-center" v-for="(how, i) in howItWorks" :key="i">
+                    <div class="item col-lg-4 col-md-6 col-sm-12 mb-4 d-flex justify-content-center cardHover" v-for="(how, i) in howItWorks" :key="i">
                         <div class="card d-flex flex-column bg-white rounded-px-30 hpx-440 px-4 py-4">
-                            <span class="wpx-118 hpx-118 perfect-center rounded-circle bg-blue-lt-1 text-blue-dk-1 mx-auto mb-3">
+                            <span class="wpx-118 hpx-118 perfect-center rounded-circle bg-blue-lt-1 text-blue-dk-1 mx-auto mb-3 iconScale">
                                 <i class="material-icons fs-60">{{ how.icon }}</i>
                             </span>
                             <div class="d-flex justify-content-center mt-5">
@@ -53,7 +53,7 @@
         </div>
 
 
-        <div class="earning container-fluid mx-0 position-relative d-flex justify-content-center">
+        <div class="earning container-fluid mx-0 position-relative d-flex justify-content-center animate__animated animate__fadeInUp six animate__slower ">
             <img src="@/assets/img/home/affiliate/coin-3.svg" alt="" class="position-absolute start-0 bottom-0 mb-5"/>
             <div class="row">
             <div class="left col-lg-6 order-1 order-lg-1 d-flex flex-column text-white">
@@ -85,7 +85,7 @@
 
                 <router-link
                     to="/register" 
-                    class="cta perfect-center text-decoration-none gilroy-medium text-black bg-yellow px-4 me-3 rounded-px-8 ms-5"
+                    class="cta perfect-center text-decoration-none gilroy-medium linksHoverYellow px-4 me-3 rounded-px-8 ms-5"
                 >Become a Atecker affiliate
                 </router-link>
             </div>
@@ -98,7 +98,7 @@
 
 
 
-        <div class="faq container-fluid d-flex justify-content-center">
+        <div class="faq container-fluid d-flex justify-content-center animate__animated animate__fadeInUp eight animate__slower ">
 
                 <div class="row mt-5">
 
@@ -521,4 +521,6 @@
             }
         }
     }
+
+  
 </style>
