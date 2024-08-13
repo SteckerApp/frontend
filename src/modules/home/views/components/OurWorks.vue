@@ -3,12 +3,13 @@
         <div class="container">
             <div class="title mx-auto mb-5 text-center">Our works</div>
             
+            <!-- please ensure to help in rewriting this images services section -->
             <div class="row">
                 <div class="col-12 position-relative px-0">
                     <img src="@/assets/img/home/our-works.svg" alt="" class="w-100 mx-auto img-fluid"/>
                     <router-link 
                         to="/works" 
-                        class="cta position-absolute bottom-0 end-0 text-black text-decoration-none gilroy-medium bg-yellow rounded-px-10 perfect-center cursor-pointer text-nowrap"
+                        class="cta position-absolute bottom-0 end-0 text-decoration-none gilroy-medium linksHoverYellow rounded-px-10 perfect-center cursor-pointer text-nowrap"
                     >See more design samples
                     </router-link>
                 </div>

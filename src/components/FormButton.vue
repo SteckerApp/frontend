@@ -36,7 +36,7 @@ const classes = computed(()=>{
         'gilroy-regular':true,
         btn:true,
         [`btn-${buttonProps.size}`]:buttonProps.size != 'default',
-        'fs-15 lh-19 linksHover': buttonProps.buttonType == "default" && buttonProps.variant == 'blue' && !buttonProps.disabled,
+        'fs-15 lh-19 linksBtnHover': buttonProps.buttonType == "default" && buttonProps.variant == 'blue' && !buttonProps.disabled,
         'fs-15 lh-19 bg-yellow text-black': buttonProps.buttonType == "default" && buttonProps.variant == 'yellow' && !buttonProps.disabled,
         'fs-15 lh-19 bg-blue-dk-1 text-white': buttonProps.buttonType == "default" && buttonProps.variant == 'dark' && !buttonProps.disabled,
         'fs-15 lh-19 bg-blue-lt-1 text-blue': buttonProps.buttonType == "default" && buttonProps.variant == 'light' && !buttonProps.disabled,
@@ -60,4 +60,16 @@ const classes = computed(()=>{
             }
         }
     }
+
+    .linksBtnHover {
+        background: var(--spa-color-blue);
+        color: var(--spa-color-white)
+      }
+      
+      
+      .linksBtnHover:hover {
+        background: var(--spa-color-white);
+        color: var(--spa-color-blue);
+        border: 1.5px solid var(--spa-color-blue)
+      }
 </style>
