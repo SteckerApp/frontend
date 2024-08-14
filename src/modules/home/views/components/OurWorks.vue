@@ -5,13 +5,22 @@
             
             <!-- please ensure to help in rewriting this images services section -->
             <div class="row">
-                <div class="col-12 position-relative px-0">
-                    <img src="@/assets/img/home/our-works.svg" alt="" class="w-100 mx-auto img-fluid"/>
-                    <router-link 
-                        to="/works" 
-                        class="cta position-absolute bottom-0 end-0 text-decoration-none gilroy-medium linksHoverYellow rounded-px-10 perfect-center cursor-pointer text-nowrap"
-                    >See more design samples
-                    </router-link>
+                <div class="col-12 position-relative px-0 work_portfolio">
+                    <div class='work_portfolio_sub'>
+                        <img src="@/assets/img/home/works/Social.svg" alt="" class=" w-100 img-fluid"/>
+                        <img src="@/assets/img/home/works/logo.svg" alt="" class="w-100 img-fluid"/>
+                    </div>
+
+                    <img src="@/assets/img/home/works/packaging.svg" alt="" class=" w-auto img-fluid"/>
+
+                    <div class='work_portfolio_right'>
+                        <img src="@/assets/img/home/works/print.svg" alt="" class=" w-100 img-fluid"/>
+                        <router-link 
+                            to="/works" 
+                            class="text-decoration-none gilroy-medium work_title p-4 linksHoverYellow rounded-px-10 perfect-center cursor-pointer"
+                        >See more design samples
+                        </router-link>
+                    </div>
                 </div>
             </div>
 
@@ -20,7 +29,48 @@
 </template>
 
 
+<script lang="tsx">
+const portfolio = [
+    {
+        title: 'Design 1',
+        img: 'work1.jpg',
+    }
+]
+</script>
+
+
+
 <style lang="scss" scoped>
+
+    .work_portfolio {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .work_portfolio_sub {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px
+    }
+
+    .work_portfolio_right {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .work_title {
+         font-size: 20px;
+         width: 100%;
+        font-family: gilroy-medium;
+    }
+
     .works{
         margin-top: 100px;
     }
