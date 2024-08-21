@@ -19,11 +19,11 @@
           </button>
           <div class="collapse navbar-collapse justify-content-end my-auto" id="navbarNav">
             <ul class="navbar-nav home-links">
-              <li class="nav-item" v-for="(link, i) in links" :key="i">
+              <li class='nav-item' v-for="(link, i) in links" :key="i">
                 <router-link  
                     v-if="link.show"
                     :to="link.path" 
-                    class="nav-link fs-10 lh-12 gilroy-bold me-4 cursor-pointer text-uppercase"
+                    class='nav-link fs-10 lh-12 gilroy-bold me-4 cursor-pointer text-uppercase'
                     :class="link.current ? 'text-blue' : 'text-blue-dk-1'"
                 >
                     {{ link.title }}
@@ -34,9 +34,9 @@
         <div class="cart-demo d-flex my-auto">
             <div class="position-relative me-3 my-auto" :class="{ 'cursor-pointer': cartCount }" @click="router.push({ name: 'Subscription.Cart' })">
                 <span class="cart-count perfect-center wpx-11 hpx-11 rounded gilroy-medium fs-8 lh-9 bg-yellow position-absolute" v-if="cartCount">{{ cartCount }}</span>
-                <span class="material-icons fs-20 mt-1">shopping_cart</span>
+                <span class="material-icons fs-20 mt-1 cartIon">shopping_cart</span>
             </div>
-            <router-link to="/get-a-demo" class="demo-link my-auto bg-blue perfect-center rounded-px-10 wpx-92 hpx-32 text-white fs-10 lh-12 gilroy-bold cursor-pointer">GET A DEMO</router-link>
+            <router-link to="/get-a-demo" class="demo-link my-auto linksHover perfect-center rounded-px-10 wpx-92 hpx-32 fs-10 lh-12 gilroy-bold cursor-pointer">GET A DEMO</router-link>
         </div>
         </div>
 
@@ -124,6 +124,11 @@
 
     .navbar-toggler{
         border:none
+    }
+
+    .nav-item:hover  .nav-link:hover, .cartIon:hover {
+        color: var(--spa-color-blue) !important;
+        cursor: pointer;
     }
 
 

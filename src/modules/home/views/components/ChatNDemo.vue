@@ -7,7 +7,7 @@
                     <i class="material-icons-outlined text-white fs-100 iconScale">forum</i>
                     <div class="fs-45 lh-53 gilroy-medium text-white mt-4">Request a callback</div>
                     <div class="fs-20 lh-23 gilroy-regular text-white mt-3">Do you have any questions about how we can help your business grow?</div>
-                    <span class="cta fs-15 lh-18 gilroy-medium bg-yellow rounded-px-5 perfect-center py-3 px-3 wpx-229 hpx-46 cursor-pointer" @click="callModal = true">Drop a message</span>
+                    <span class="cta fs-15 lh-18 gilroy-medium linksHoverYellow rounded-px-5 perfect-center py-3 px-3 wpx-229 hpx-46 cursor-pointer" @click="callModal = true">Drop a message</span>
                 </div>
             </div>
             <div class="item-right d-flex col-12 col-lg-6 pypx-100 bg-blue-lt-1 ">
@@ -17,7 +17,7 @@
                     <div class="fs-20 lh-23 gilroy-regular text-blue-dk-2 mt-3">Get a walkthrough of how Spark works</div>
                     <router-link 
                         to="/get-a-demo" 
-                        class="cta text-white text-decoration-none fs-15 lh-18 gilroy-medium bg-blue-dk-2 text-white rounded-px-5 perfect-center py-3 px-3 wpx-229 hpx-46 cursor-pointer"
+                        class="cta text-decoration-none fs-15 lh-18 gilroy-medium linksHover rounded-px-5 perfect-center py-3 px-3 wpx-229 hpx-46 cursor-pointer"
                     >Request demo
                     </router-link>
                 </div>

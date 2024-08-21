@@ -8,7 +8,7 @@
                         <div class="description gilroy-regular text-white my-3">Sign up in 2 minutes! Cancel anytime!</div>
                         <router-link 
                             to="/register" 
-                            class="text-black text-decoration-none fs-15 lh-18 gilroy-medium bg-yellow rounded-px-5 perfect-center w-fit-content px-5 py-2 hpx-46 cursor-pointer"
+                            class="text-decoration-none fs-15 lh-18 gilroy-medium linksHoverYellow rounded-px-5 perfect-center w-fit-content px-5 py-2 hpx-46 cursor-pointer"
                         >Get started
                         </router-link>
                     </div>

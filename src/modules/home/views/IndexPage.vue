@@ -21,13 +21,12 @@ import IntroComponent from './components/IntroComponent.vue';
 import BrandComponent from './components/BrandComponent.vue';
 import ClientsStatement from './components/ClientsStatement.vue';
 import PricingMini from './components/PricingMini.vue';
-import OurWorks from './components/OurWorks.vue';
+import OurWorks from "./components/OurWorks.vue";
 import OfferComponent from './components/OfferComponent.vue';
 import HowItWorks from './components/HowItWorks.vue';
 import ChatNDemo from './components/ChatNDemo.vue';
 import RecentBlog from './components/RecentBlog.vue';
 import { getComments } from '../services';
-import inViewTransition from '@/hook/inViewTransition.vue';
 import 'animate.css';
 
 const slides = ref([] as any);

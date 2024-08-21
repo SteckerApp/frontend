@@ -51,16 +51,16 @@
             </ul>
 
             <div class="d-flex my-auto mt-4">
-                <div class="my-auto me-2 cursor-pointer wpx-35 hpx-35 d-flex border-white justify-content-center align-items-center">
-                    <img src="@/assets/img/home-icons/facebook.svg" alt=""/>
+                <div class="my-auto me-2 cursor-pointer wpx-35 hpx-35 d-flex border-white justify-content-center align-items-center iconHoverYellow">
+                    <img src="@/assets/img/home-icons/facebook.svg" alt=""  class='iconHoverYellow'/>
                 </div>
-                <div class="my-auto me-2 cursor-pointer wpx-35 hpx-35 d-flex border-white justify-content-center align-items-center">
+                <div class="my-auto me-2 cursor-pointer wpx-35 hpx-35 d-flex border-white justify-content-center align-items-center iconHoverYellow">
                     <img src="@/assets/img/home-icons/instagram.svg" alt=""/>
                 </div>
-                <div class="my-auto me-2 cursor-pointer wpx-35 hpx-35 d-flex border-white justify-content-center align-items-center">
+                <div class="my-auto me-2 cursor-pointer wpx-35 hpx-35 d-flex border-white justify-content-center align-items-center iconHoverYellow">
                     <img src="@/assets/img/home-icons/twitter.svg" alt=""/>
                 </div>
-                <div class="my-auto me-2 cursor-pointer wpx-35 hpx-35 d-flex border-white justify-content-center align-items-center">
+                <div class="my-auto me-2 cursor-pointer wpx-35 hpx-35 d-flex border-white justify-content-center align-items-center iconHoverYellow">
                     <img src="@/assets/img/home-icons/linkedin.svg" alt=""/>
                 </div>
             </div>
@@ -72,7 +72,7 @@
     </footer>
 
     <footer class="spa-footer container-fluid bg-red-dk-1 hpx-80 d-flex align-items-center">
-        <div class="copyright fs-18 lh-20 gilroy-regular text-white">©2022 Spark Creative Studio Limited.  All rights reserved</div>
+        <div class="copyright fs-18 lh-20 gilroy-regular text-white">©{{ year.getFullYear() }} Spark Creative Studio Limited.  All rights reserved</div>
     </footer>
 </template>
 
@@ -82,6 +82,8 @@
     import BookACall from './BookACall.vue'
 
     const callModal = ref(false);
+
+    const year = new Date()
 
 </script>
 

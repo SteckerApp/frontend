@@ -68,7 +68,7 @@
               <router-link
                   v-if="isNonAuth"
                   to="/register" 
-                  class="non-auth-select-plan perfect-center text-decoration-none fs-15 lh-19 gilroy-bold wpx-200 hpx-42 px-3 rounded-px-8 mt-2 mx-auto"
+                  class="non-auth-select-plan perfect-center  text-decoration-none fs-15 lh-19 gilroy-bold w-100 hpx-42 rounded-px-8 my-2 mx-auto"
               >Select plan
               </router-link>
             <FormButton v-else label="Select plan" variant="light" class="mt-2 hpx-42 mx-auto" @click.prevent="emits('submit:plan', plan.id)"/>
@@ -146,6 +146,8 @@ const emits = defineEmits(['new:category','submit:plan'])
 
 const selectedModalItem = ref({} as any)
 
+console.log(" selectedModalItem: ", selectedModalItem)
+
 
 const showMoreInfo = ref(false)
 
@@ -155,6 +157,8 @@ const setModalItem = (show: boolean, item?: any) => {
     selectedModalItem.value = item
   }
 }
+
+
 const categoryPlans = computed(()=>{
 let categoryData = props.categories.find((cat:any)=>cat.name == currentCategory.value);
 return categoryData?.plans as any

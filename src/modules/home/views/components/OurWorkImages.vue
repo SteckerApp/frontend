@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="animate__animated animate__fadeInUp four animate__slower">
     <div class="container-fluid">
         <div class="our-work-images mtpx-100 d-flex justify-content-center">
             <div class="row g-4">
@@ -19,6 +19,7 @@
                         </span>
                     </div>
                 </div>
+
                 <div class="col-sm-12 col-md-8">
                     <div class="row g-4">
                         <div class="col-sm-4 col-md-4 position-relative"  v-for="(image, i) in images" :key="i">
@@ -30,6 +31,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -127,18 +129,16 @@
 
 <style lang="scss" scoped>
 
-
-
-
 @media (max-width: 600px) {
     .our-work-images {
         .tags{
-            justify-content: center;
+            flex-direction: column;
         }
         .row:first{
             flex-direction: column;
         }
     }
+
 }
 
 

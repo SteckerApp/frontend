@@ -1,7 +1,7 @@
 <template>
     <div>
-        <HeroHead>
-            <div class="work-page">
+        <HeroHead class="animate__animated animate__fadeInUp four animate__slower">
+            <div class="work-page animate__animated animate__fadeInUp four animate__slower">
                 <div class="container">
                     <div class="row">
 
@@ -18,22 +18,26 @@
         <!-- <OurWorkImagesMock  class="pypx-70 pxpx-150"/> -->
         <BrandComponent />
         <ReadyDemo />
+
+        <LoadingModal :isLoading="portfolioDataIsLoading"/>
     </div>
 </template>
 
 
 <script lang="ts" setup>
     import OurWorkImages from './components/OurWorkImages.vue'
-    import OurWorkImagesMock from './components/OurWorkImagesMock.vue'
     import BrandComponent from './components/BrandComponent.vue'
     import ReadyDemo from './components/ReadyDemo.vue'
     import {getPortfolio} from '../services'
     import {ref, onMounted} from 'vue'
     import useGlobals from "@/globals/composables"
+import LoadingModal from '@/components/LoadingModal.vue'
 
     const {apiBaseUrl} = useGlobals()
 
     const portfolio = ref({} as any)
+
+    console.log("portfolio: ", portfolio)
 
     const {
         isLoading: portfolioDataIsLoading,

@@ -123,8 +123,24 @@ $enable-negative-margins: true;
   background: var(--spa-color-white);
   color: var(--spa-color-blue);
 
+
+
+  .linksBtnHoverYellow {
+    background: var(--spa-color-yellow);
+    color: var(--spa-color-black)
+  }
+  
+  
+  .linksBtnHover:hover, .linksBtnHoverYellow:hover {
+    background: var(--spa-color-white);
+    color: var(--spa-color-blue);
+    border: 1.5px solid var(--spa-color-blue)
+  }
 }
 
+.iconHoverYellow:hover {
+  color: var(--spa-color-yellow) !important;
+}
 
 @keyframes animate-in {
     0% { opacity: 0; transform: translateY(100%); }

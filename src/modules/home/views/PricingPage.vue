@@ -15,7 +15,9 @@
     </HeroHead>
    
     <div>
-      <PlansComponent :category="category" :categories="categories" @new:category="updateCategory" is-non-auth/>
+      <div class="animate__animated animate__fadeInUp four animate__slower"> 
+        <PlansComponent :category="category" :categories="categories" @new:category="updateCategory" is-non-auth/>
+      </div>
       <div class="mtpx-10">
         <PricingBox />
         <ChatNDemo />
