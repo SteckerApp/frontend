@@ -59,12 +59,18 @@ const portfolio = [
         scroll-snap-align: start;
         min-width: 300px;
         gap: 20px;
+        overflow: hidden;
     }
 
     .img-fluid {
         width: 100%;
         height: auto;
         object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .work_portfolio_item:hover .img-fluid {
+        transform: scale(1.05);
     }
 
     .work_title {
@@ -72,6 +78,10 @@ const portfolio = [
         width: 100%;
         font-family: gilroy-medium;
         text-align: center;
+    }
+
+    .img-fluid:hover {
+        transform: scale(1.1);
     }
 
     .works {
