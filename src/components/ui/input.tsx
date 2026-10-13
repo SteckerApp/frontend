@@ -1,5 +1,6 @@
 import React from 'react'
 import { Input as InputField, Select } from 'antd'
+import { InputProps } from '@/types/types'
 
 const Input:React.FC<InputProps> = (props) => {
   return (
