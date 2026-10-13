@@ -40,6 +40,7 @@ interface InputProps {
     textAreaChange?: React.ChangeEventHandler<HTMLTextAreaElement> | undefined
     onError?: React.ReactEventHandler<HTMLInputElement> | undefined
     onBlur?: React.FocusEventHandler<HTMLInputElement> | undefined
+    onOtpChange?: (value: string) => void;
 }
 
 

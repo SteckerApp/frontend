@@ -62,7 +62,7 @@ const OTP = () => {
         <p className='text-25 md:text-30 font-medium font-outfit text-black text-center'>Complete your profile?</p>
         <p className='text-gray text-18 font-regular font-outfit pt-2 border-b border-border pb-8 mb-8 text-center'>Please confirm your email address</p>
         <form onSubmit={formik.handleSubmit}>
-          <Input type='otp' name='code' onChange={(value: string) => formik.setFieldValue("code", value)} value={formik.values.code} length={6} onBlur={formik.handleBlur} label='Enter OTP Code sent to your email' padding="flex justify-center items-center flex-col" />
+          <Input onOtpChange={(value) => formik.setFieldValue("code", value)} type='otp' name='code'  value={formik.values.code} length={6} onBlur={formik.handleBlur} label='Enter OTP Code sent to your email' padding="flex justify-center items-center flex-col" />
           <Button type="primary" className="w-full mt-7" htmlType='submit' loading={isOTPLoading}>Next</Button>
         </form>
         <p className="flex justify-center items-center text-center gap-5 text-16 text-gray font-regular font-outfit pt-5">
