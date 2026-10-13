@@ -1,4 +1,4 @@
-import { AffiliateCard, Button, DashboardLayout, InnerWrapper } from '@/components'
+import { AffiliateCard, Button, InnerWrapper } from '@/components'
 import { Icons } from '@/constants'
 
 const data = [
@@ -28,8 +28,7 @@ const data = [
 
 const DashboardAffiliate = () => {
   return (
-    <DashboardLayout isAffiliate>
-            <InnerWrapper>
+    <InnerWrapper>
               <div className='flex justify-between items-center mb-5'>
                 <span className="text-24 text-black font-medium font-outfit">Referral Overview</span>
                 <Icons.RefreshIcon size={30} className='text-black cursor-pointer' />
@@ -75,7 +74,6 @@ const DashboardAffiliate = () => {
 
                 <span className='flex justify-center items-center text-black text-12 font-normal font-outfit mt-10 lg:mt-20'>Please note that some Terms and Conditions apply. Your friends will need to verify their identity and also use any of our services before any cash rewards are paid to your account.</span>
             </InnerWrapper>
-    </DashboardLayout>
   )
 }
 

@@ -1,6 +1,6 @@
 import { Button, Input } from "@/components";
 import { Icons } from "@/constants";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 interface Dimension {
   width: string;
@@ -57,7 +57,7 @@ const CreateProject = () => {
             placeholder="width"
             className="w-full"
             value={dim.width}
-            onChange={(e) =>
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
               handleDimensionChange(index, "width", e.target.value)
             }
           />
@@ -65,7 +65,7 @@ const CreateProject = () => {
           <Input
             type="text"
             value={dim.height}
-            onChange={(e) =>
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
               handleDimensionChange(index, "height", e.target.value)
             }
             placeholder="height"

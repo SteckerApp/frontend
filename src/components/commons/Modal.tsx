@@ -4,7 +4,7 @@ import { Modal as CustomModal } from "antd"
 interface CustomModalProps {
     open: boolean
     onCancel?: ((e: React.MouseEvent<HTMLButtonElement>) => void) | undefined
-    onClose?: ((e: React.SyntheticEvent) => any) | undefined
+    onClose?: (e: React.SyntheticEvent) => void;
     title?: React.ReactNode
     children: React.ReactNode
     width?: number | string
@@ -15,7 +15,7 @@ interface CustomModalProps {
 
 const Modal:React.FC<CustomModalProps> = (props) => {
   return (
-    <CustomModal height={props.height} className={props.className} closeIcon={props.closeIcon || null} width={props.width} title={props.title} open={props.open} onCancel={props.onCancel} onClose={props.onClose} footer={null}>
+    <CustomModal height={props.height} className={props.className} closeIcon={props.closeIcon || null} width={props.width} title={props.title} open={props.open} onCancel={props.onCancel ?? props.onClose} footer={null}>
           {props.children}
       </CustomModal>
   )

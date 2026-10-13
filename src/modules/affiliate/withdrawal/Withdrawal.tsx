@@ -1,4 +1,4 @@
-import { Button, CustomTab, DashboardLayout, InnerWrapper } from '@/components'
+import { Button, CustomTab, InnerWrapper } from '@/components'
 import { Images } from '@/constants'
 import { ReferralTable } from './ReferalTable';
 import { PayoutTable } from './PayoutTable';
@@ -14,8 +14,7 @@ const Withdrawal = () => {
       const options = ["Referral history", "Payout history"]
 
   return (
-    <DashboardLayout isAffiliate>
-        <InnerWrapper>
+      <InnerWrapper>
                <div className='bg-white rounded-20 p-5 lg:p-10 mt-5'>
                     <span className='text-25 text-black font-medium font-outfit'>Bank Account</span>
                     <p className='text-gray text-14 font-regular font-outfit'>Your referral earnings will be credited into this account</p>
@@ -37,7 +36,6 @@ const Withdrawal = () => {
                     <CustomTab options={options} contentMap={contentMap} isButton width='w-[10.5rem]' buttonText='Request Payout' buttonTextSmall="+" />
                </div>
         </InnerWrapper>
-    </DashboardLayout>
   )
 }
 

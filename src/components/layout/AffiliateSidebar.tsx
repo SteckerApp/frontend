@@ -4,17 +4,16 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Referral } from "./Referral";
 import { useState } from "react";
 import { DeleteModal } from "../commons";
-import { useAppDispatch } from "@/api/store";
 import { apiServices } from "@/services";
 
 
 const AffiliateSidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch(); 
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [ logoutLoading, setLogoutLoading ] = useState<boolean>(false);
+  const [ logoutUser ] = apiServices.useLogoutMutation();
 
   const handleIsLogout = () => {
     setModalOpen(!isModalOpen);
@@ -25,7 +24,7 @@ const AffiliateSidebar = () => {
     setLogoutLoading(true);
     setTimeout(() => {
       handleIsLogout();
-      dispatch(apiServices.logoutUser());
+      logoutUser();
       navigate(paths.login); 
     }, 2000)
   };

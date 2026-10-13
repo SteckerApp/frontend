@@ -1,4 +1,4 @@
-import type { ElementType, ReactNode } from 'react'
+import type { ComponentType, ReactNode, SVGProps } from 'react'
 import { Icons, paths } from '@/constants'
 
 export type RouteAssign =
@@ -51,9 +51,14 @@ export const clientArray: RouteAssign[] = clientRoutes.filter((r) => !r.hidden).
 export const affiliateArray: RouteAssign[] = affiliateRoutes.map((r) => r.assign)
 
 // ── Bottom nav ────────────────────────────────────────────────────────────────
+
+export type FooterIcon =
+  | string
+  | ComponentType<SVGProps<SVGSVGElement>>;
+
 export interface FooterLink {
   to: string
-  icon: string | ElementType
+  icon: FooterIcon
   label: string
 }
 

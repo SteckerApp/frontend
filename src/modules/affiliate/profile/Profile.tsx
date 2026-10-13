@@ -1,4 +1,4 @@
-import { DashboardLayout, InnerWrapper, Input } from '@/components'
+import {  InnerWrapper, Input } from '@/components'
 import { Icons, Images } from '@/constants'
 import { Avatar, Button } from 'antd'
 
@@ -15,8 +15,7 @@ const Profile = () => {
         }
     ]
   return (
-    <DashboardLayout isAffiliate>
-        <InnerWrapper>
+    <InnerWrapper>
             <div className='flex justify-center items-center'>
             <div className='block lg:flex justify-center bg-primaryLight p-5 lg:p-20 rounded-20 border border-white w-full lg:w-[70rem] gap-20 mt-5'>
                     <div className='flex justify-center items-center relative'>
@@ -34,7 +33,6 @@ const Profile = () => {
             </div>
             </div>
         </InnerWrapper>
-    </DashboardLayout>
   )
 }
 

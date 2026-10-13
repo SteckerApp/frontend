@@ -1,6 +1,7 @@
 import { Icons, paths } from "@/constants"
 import { Link } from "react-router-dom"
 import { WhatsApp } from "../ui"
+import { AuthLayoutProps } from "@/types/types"
 
 const AuthLayout:React.FC<AuthLayoutProps> = (props) => {
   return (

@@ -1,6 +1,7 @@
 import React from "react";
 import { Icons } from "@/constants";
 import { Link } from "react-router-dom";
+import { InputProps } from "@/types/types";
 
 const OAuth: React.FC<InputProps> = (props) => {
   const loginAuth = [

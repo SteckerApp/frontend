@@ -6,7 +6,7 @@ import { getErrorMessage } from '@/utils/ultis'
 import { Button } from "antd"
 import { useFormik } from 'formik'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 const RESEND_SECONDS = 50

@@ -1,4 +1,5 @@
 import { DraggableItems, HandleDragEnd, ProjectCard } from '@/components';
+import { Project } from '@/types/types';
 import { DndContext, closestCenter } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useState } from 'react';
