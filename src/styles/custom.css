@@ -1,0 +1,330 @@
+
+
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('../assets/fonts/Gilroy-Thin.ttf') format('truetype');
+    font-weight: 100; 
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('../assets/fonts/Gilroy-UltraLight.ttf') format('truetype');
+    font-weight: 200; 
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('../assets/fonts/Gilroy-Light.ttf') format('truetype');
+    font-weight: 300; 
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('../assets/fonts/Gilroy-Regular.ttf') format('truetype');
+    font-weight: 400; 
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('../assets/fonts/Gilroy-Medium.ttf') format('truetype');
+    font-weight: 500; 
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('../assets/fonts/Gilroy-SemiBold.ttf') format('truetype');
+    font-weight: 600; 
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('../assets/fonts/Gilroy-Bold.ttf') format('truetype');
+    font-weight: 700; 
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('../assets/fonts/Gilroy-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('../assets/fonts/Gilroy-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Outfit';
+    src: url('../assets/fonts/Gilroy-Heavy.ttf') format('truetype');
+    font-weight: 950; 
+    font-style: normal;
+}
+
+:root {
+    --colorPrimary: rgba(18, 39, 226, 1);
+    --colorPrimaryLight: #E7E9FC;
+    --colorBlack: rgba(0, 0, 0, 1);
+    --colorBlackHeader:#696F79;
+    --colorBlackBody: #212121;
+    --colorWhite: #ffffff;
+    --colorGray: #8692A6;
+    --colorGray500: rgba(105, 111, 121, 1);
+    --colorCard: #FFF4F4;
+    --colorSubscribe: #FFD1D4;
+    --colorPlaceholder: rgba(73, 73, 73, 1);
+    --colorBorder: #F5F5F5;
+    --colorSidebar: #FAFAFC;
+    --colorSuccess: rgba(8, 173, 54, 1);
+    --colorSuccessBg: rgba(5, 166, 41, 20%);
+    --colorWarningBg: rgb(255, 88, 89, 20%);
+    --colorPending: #FFCD05;
+    --colorPendingBg: #C7C7C7;
+    --colorYellowBg: rgb(255, 255, 0, 20%);
+    --colorTransparent: transparent;
+    --fontOutfit: "Outfit", 'sans-serif';
+    --boxShadow: 0px 5px 13px 0px rgba(0, 0, 0, 0.15);
+    --colorDashboardBg: #E7E9FC;
+    --colorAuthBg: url("../assets/icons/authBg.svg");
+    --colorSidebarLogout: url("../assets/icons/logout.svg");
+    --boxShadowRight: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    --colorBorderGray: rgba(0, 0, 0, 0.25);
+    --colorTableBorder: #ECECEC;
+    --colorNavbarBg:  #F7F7FB;
+    --colorError: #C00202;
+    --colorDesigner: #DE09AF;
+    --colorDesignerLight:rgb(222, 9, 175, 10%);
+    --colorAuthor: #FF6F00;
+    --colorAuthorLight:rgb(255, 111, 0, 10%);
+
+    /* font size */
+    --font24: 24px;
+
+
+    /* radius */
+    --radius8: 8px;
+    --radius10: 10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    scroll-snap-type: both mandatory;
+    box-shadow: none;
+}
+
+a, textarea, select, button{
+    text-decoration: none;
+    outline: none;
+    box-shadow: none;
+    outline-style: none;
+}
+
+input {
+    text-decoration: none;
+    box-shadow: none;
+}
+
+.active {
+    background: var(--colorPrimaryLight);
+    color: var(--colorPrimary);
+}
+
+.activeSub {
+    color: var(--colorPrimary);
+}
+
+/* container */
+.dashboard_container {
+    position: relative;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0rem;
+    overflow-x: hidden;
+}
+
+.addon_modal .ant-modal-content {
+    background: var(--colorPrimaryLight) !important;
+}
+
+
+.booking_completed, .booking_Completed, .booking_success .booking_approved {
+    background: var(--colorSuccessBg);
+    color: var(--colorSuccess);
+}
+
+.booking_failed, .booking_Failed, .booking_unsuccessful .booking_Unsuccessful {
+    background: var(--colorWarningBg);
+    color: var(--colorPrimary);
+}
+
+.booking_pending, .booking_Pending {
+    background: var(--colorPendingBg);
+    color: var(--colorPending);
+}
+
+.booking_processing, .booking_Processing {
+    background: "text-blue-100";
+    color: "text-blue-500";
+}
+
+
+.ant-btn, .ant-btn:focus {
+    outline-style: none !important;
+    box-shadow: none !important;
+    height: 60px !important;
+    border-color: none;
+}
+
+.ant-switch, .ant-switch:focus {
+    border: none !important;
+    outline: none !important;
+    border-color: none;
+    box-shadow: none !important;
+}
+
+.ant-input, .ant-input-password, .ant-input-affix-wrapper, .ant-select, select {
+    outline-style: none !important;
+    box-shadow: none !important;
+    height: 49px;
+    border: 1.5px solid var(--colorGray);
+    border-color: none;
+}
+
+.ant-input:focus, .ant-input-password:focus, .ant-input-affix-wrapper:focus, .ant-select:focus, select:focus  {
+    border: 1.5px solid var(--colorPrimary);
+    /* outline-style: none !important; */
+    box-shadow: var(--boxShadow) !important;
+    border-color: none;
+}
+
+.ant-otp-input, .ant-input-otp {
+    width: 45px;
+    border: 1.5px solid var(--colorPrimary);
+    color: var(--colorPrimary);
+    font-family: var(--fontOutfit);
+}
+
+.ant-otp-input:valid, .ant-input-otp:valid  {
+    border: 1.5px solid var(--colorPrimary);
+}
+
+.ant-otp-input:invalid, .ant-input-otp:invalid {
+    border: 1.5px solid var(--colorGray);
+}
+
+.ant-input::placeholder, .ant-input-password::placeholder, .ant-input-affix-wrapper::placeholder, .ant-otp-input::placeholder, .ant-input-otp::placeholder, .ant-select::placeholder, select::placeholder  {
+    color: var(--colorPlaceholder);
+}
+
+.ant-btn-primary {
+    color: #fff;
+    background: var(--colorPrimary);
+    border: none;
+    outline: none;
+    border-color: none;
+    font-size: 20px;
+    font-weight: "500";
+    font-family: var(--fontOutfit)
+}
+
+.ant-btn-default {
+    color: var(--colorPrimary) !important;
+    background: var(--colorTransparent);
+    border: 2px solid var(--colorPrimary) !important;
+    outline: none;
+    font-size: 20px;
+    font-weight: "500";
+    font-family: var(--fontOutfit)
+}
+
+.ant-btn-primary:not(:disabled):not(.ant-btn-disabled):hover {
+    color: #fff;
+    background: var(--colorPrimary);
+    border: none;
+    outline: none;
+    border-color: none;
+  }
+
+ .ant-switch.ant-switch-checked:hover:not(.ant-switch-disabled) {
+    background: var(--colorPrimary);
+    border: none;
+    box-shadow: none;
+    border-color: none;
+}
+
+ .ant-input-affix-wrapper > input.ant-input, 
+ .ant-input-affix-wrapper > textarea.ant-input {
+    padding-bottom: 10px;
+}
+
+.active-item {
+    background: var(--colorPrimaryLight);
+    color: var(--colorPrimary);
+    border-right: 2px solid var(--colorPrimary);
+    font-weight: 600;
+}
+
+.search_nav, .search_nav:hover, .search_nav:focus {
+    outline: none;
+    border: none,
+}
+
+@media  (max-width: 499px) {
+    .ant-otp-input, .ant-input-otp {
+        width: 40px;
+        border: 1.5px solid var(--colorPrimary);
+        color: var(--colorPrimary);
+        font-family: var(--fontOutfit);
+    }
+}
+
+@media  (min-width: 500px) {
+    .ant-otp-input, .ant-input-otp {
+        width: 55px;
+        border: 1.5px solid var(--colorPrimary);
+        color: var(--colorPrimary);
+        font-family: var(--fontOutfit);
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard_container {
+        width: 100%;
+    }
+}
+
+
+@media (min-width: 999px) {
+    .tryspark_container {
+        max-width: 100%; /* 1024px; */
+        padding: 0rem 2rem;
+    }
+
+    .dashboard_container {
+        max-width: 100%;
+        padding: 0rem; 
+    }
+}
+
+
+@media (min-width: 1440px) {
+    .dashboard_container {
+        max-width: 100%; /* 2560px */
+        padding: 0rem; 
+    }
+}
