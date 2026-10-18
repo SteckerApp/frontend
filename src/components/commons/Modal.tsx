@@ -3,8 +3,8 @@ import { Modal as CustomModal } from "antd"
 
 interface CustomModalProps {
     open: boolean
-    onCancel?: ((e: React.MouseEvent<HTMLButtonElement>) => void) | undefined
-    onClose?: (e: React.SyntheticEvent) => void;
+    onCancel?: (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLElement>) => void;
+    onClose?: (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLElement>) => void;
     title?: React.ReactNode
     children: React.ReactNode
     width?: number | string
