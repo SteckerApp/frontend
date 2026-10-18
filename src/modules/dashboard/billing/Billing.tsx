@@ -1,7 +1,6 @@
 import {
   Button,
   CustomModal,
-  DashboardLayout,
   InnerWrapper,
   OrderTable,
   PaymentMethod,
@@ -30,7 +29,7 @@ const Billings = () => {
   }
 
   return (
-    <DashboardLayout>
+    <>
       <InnerWrapper>
         {/* Billing card */}
         <div className="flex md:grid md:grid-cols-2 gap-5 md:gap-10 overflow-x-auto">
@@ -125,7 +124,7 @@ const Billings = () => {
                 </div>
             </CustomModal>
       )}
-    </DashboardLayout>
+    </>
   );
 };
 

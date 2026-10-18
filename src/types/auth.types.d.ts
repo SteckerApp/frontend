@@ -28,7 +28,7 @@ export interface Credentials {
   }
 
  export interface LoginCredentials {
-    user_type: "client" | "affiliate" | "admin" | string;
+    user_type?: "client" | "affiliate" | "admin" | string;
     email: string;
     password: string;
   }

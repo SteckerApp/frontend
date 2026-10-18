@@ -24,7 +24,7 @@ const Navbar = ({ isAffiliate } : { isAffiliate?: boolean}) => {
   }
 
   return (
-    <div className="relative parent-container mb-[5.5rem]"> {/* Parent container is relative */}
+    <div className="relative parent-container mb-[5.5rem]">
       <div className='flex bg-white lg:bg-transparent justify-between items-center px-5 md:px-10 py-5 w-full fixed top-0 z-50'>
         <section className='justify-center items-center bg-white px-3 rounded-10 w-full hidden sm:flex md:w-[25rem]'>
           <input
@@ -56,9 +56,9 @@ const Navbar = ({ isAffiliate } : { isAffiliate?: boolean}) => {
             aria-label="Toggle menu"
             ref={triggerNode}
           >
-            <p className='text-16 font-medium font-outfit text-black hidden sm:flex'>
+            <div className='text-16 font-medium font-outfit text-black hidden sm:flex'>
               Hello! <span className='font-bold ml-2'>{isLoading ? <Skeleton.Button /> : profile?.data?.user?.firstName}</span>
-            </p>
+            </div>
             <Icons.ChevronDownIcon />
           </article>
         </section>

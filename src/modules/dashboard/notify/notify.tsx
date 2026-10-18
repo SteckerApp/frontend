@@ -1,4 +1,4 @@
-import { DashboardLayout, InnerWrapper, Label, NotificationBox } from "@/components";
+import { InnerWrapper, Label, NotificationBox } from "@/components";
 import { Icons } from "@/constants";
 
 interface MessageProps {
@@ -105,7 +105,7 @@ const Notify = () => {
   ];
 
   return (
-    <DashboardLayout>
+    <>
       <InnerWrapper>
         <div className="flex justify-between items-center pb-5">
         <Label label="Notification" />
@@ -129,7 +129,7 @@ const Notify = () => {
             </div>
         </div>
       </InnerWrapper>
-    </DashboardLayout>
+    </>
   );
 };
 

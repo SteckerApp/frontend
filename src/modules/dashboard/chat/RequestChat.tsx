@@ -1,4 +1,4 @@
-import { DashboardLayout, InnerWrapper } from "@/components";
+import { InnerWrapper } from "@/components";
 import { ChatLeft } from "./modules/ChatLeft";
 import { Icons } from "@/constants";
 import { ChatRight } from "./modules/ChatRight";
@@ -16,7 +16,7 @@ const RequestChat = () => {
   console.log(id);
 
   return (
-    <DashboardLayout>
+    <>
       <InnerWrapper>
         <div className="flex flex-col lg:flex-row justify-center items-center gap-5">
           {/* left request chat */}
@@ -37,7 +37,7 @@ const RequestChat = () => {
           </div>
         </div>
       </InnerWrapper>
-    </DashboardLayout>
+    </>
   );
 };
 

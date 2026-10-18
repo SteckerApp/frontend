@@ -1,4 +1,4 @@
-import { Banner, Button, CustomModal, DashboardLayout, DeleteModal, EmptyState, InnerWrapper } from "@/components";
+import { Banner, Button, CustomModal, DeleteModal, EmptyState, InnerWrapper } from "@/components";
 import { Images } from "@/constants";
 import { Avatar } from "antd";
 import {  useState } from "react";
@@ -49,7 +49,7 @@ const handleClose = () => {
 
   
   return (
-    <DashboardLayout>
+    <>
       <InnerWrapper>
         {/* banner */}
         <Banner setIsAddTeamOpen={toggleOpenTeam} avatar={`${spark.apiBaseUrl + teams?.data?.avatar ? Images.UserAvatar : spark.apiBaseUrl + teams?.data?.avatar }`} title={teams?.data?.name} description={teams?.data?.description} loading={isTeamsLoading} />
@@ -95,7 +95,7 @@ const handleClose = () => {
     onCancel={handleClose} />
     )}
 
-    </DashboardLayout>
+    </>
   );
 };
 

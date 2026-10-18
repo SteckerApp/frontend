@@ -1,5 +1,5 @@
 
-import { Button, DashboardLayout, InnerWrapper } from '@/components'
+import { Button, InnerWrapper } from '@/components'
 import { CreateProject } from './modules/CreateProject'
 import { AboutTheTask } from './modules/AboutTheTask';
 import { FileUpload } from './modules/FileUpload';
@@ -44,7 +44,7 @@ const Project = () => {
 
       
   return (
-    <DashboardLayout>
+    <>
         <InnerWrapper>
             <div className='px-0 lg:px-40'>
             <span className="text-primary text-22 lg:text-35 font-semibold font-outfit">
@@ -80,7 +80,7 @@ const Project = () => {
           </div>
             </div>
         </InnerWrapper>
-    </DashboardLayout>
+    </>
   )
 }
 

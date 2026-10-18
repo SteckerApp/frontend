@@ -7,12 +7,13 @@ import { clearAuth, selectToken, selectUser, setUser } from '@/store/authSlice'
 import { FaSpinner } from 'react-icons/fa'
 import { DashboardLayout }from '@/components'
 import { apiServices } from '@/services'
+import { spark } from '@/config'
 
 // ── Loader fallback ────
 function PageLoader() {
   return (
     <div className="flex items-center justify-center h-[60vh]">
-      <FaSpinner size="lg" />
+      <FaSpinner size={20} />
     </div>
   )
 }
@@ -21,19 +22,27 @@ function PageLoader() {
 export function Bootstrap({ children }: { children: ReactNode }) {
   const dispatch = useAppDispatch()
   const token = useAppSelector(selectToken)
-  const user = useAppSelector(selectUser)
-  const { data, isSuccess, isError } = apiServices.useGetMeQuery(undefined, {
-    skip: !token || !!user,
+  // const user = useAppSelector(selectUser)
+  const { data, isSuccess } = apiServices.useGetMeQuery(undefined, {
+    skip: !token,
   })
 
+  console.log("get login user from bootstrap:", data?.data?.user)
+
+  console.log("get login user from bootstrap success:", isSuccess)
+
   useEffect(() => {
-    if (isSuccess && data) dispatch(setUser(data?.data?.user))
-  }, [isSuccess, data, dispatch])
+  if (isSuccess && data) {
+
+    dispatch(setUser(data?.data?.user))
+  }
+}, [dispatch, data, isSuccess])
 
   // Stay on the splash until the user is in the store. Checking `isFetching`
   // alone leaves a one-render gap between the response arriving and setUser
   // running, and the user_type guards would redirect during that gap.
-  if (token && !user && !isError) {
+  if (token && !data?.data?.user ) {
+
     return (
       <div className="min-h-screen bg-void flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
@@ -48,7 +57,7 @@ export function Bootstrap({ children }: { children: ReactNode }) {
               <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
-          <FaSpinner size="md" />
+          <FaSpinner size={20} />
           <p className="text-sm text-dim">Connecting…</p>
         </div>
       </div>
@@ -61,6 +70,7 @@ export function Bootstrap({ children }: { children: ReactNode }) {
 // ── Route guards ───
 export function Private() {
   const token = useAppSelector(selectToken)
+  console.log("private only token:", token)
   if (!token) return <Navigate to={paths.login} replace />
   return (
     <DashboardLayout>
@@ -103,11 +113,13 @@ export function ClientOrAffiliate() {
 
 /** Affiliate dashboard. Clients are sent back to their own dashboard. */
 export function AffiliateOnly() {
-  return <RequireUserType allow={['affiliate']} redirectTo={paths.dashboardOverview} />
+  return <RequireUserType allow={['affiliate']} redirectTo={spark.after_auth_path} />
 }
 
 export function PublicOnly() {
   const token = useAppSelector(selectToken)
+
+  console.log("public only token:", token)
   if (token) return <Navigate to={paths.dashboardOverview} replace />
   return <Outlet />
 }

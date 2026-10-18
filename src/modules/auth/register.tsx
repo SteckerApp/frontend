@@ -16,7 +16,7 @@ const Register = () => {
       last_name: '',
       email: '',
       password: '',
-      userType: "client",
+      usertype: "client",
     },
     onSubmit: async (values) => {
       try {

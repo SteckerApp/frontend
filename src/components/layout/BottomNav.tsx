@@ -130,7 +130,7 @@ const BottomNav = ({ isAffiliate }: { isAffiliate?: boolean }) => {
         title={null}
         placement="bottom"
         closable={false}
-        height={250}
+        size={250}
         onClose={() => setOpen(false)}
         open={open}
         className="rounded-tl-32 rounded-tr-32 text-gray"

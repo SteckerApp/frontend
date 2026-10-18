@@ -16,7 +16,6 @@ const Login = () => {
    const dispatch   = useAppDispatch()
   const [ loginUser, { isLoading } ] = apiServices.useLoginMutation();
 
- 
 
   const formik = useFormik({
     initialValues: {
@@ -28,7 +27,7 @@ const Login = () => {
     validateOnMount: true,
     onSubmit: async (values) => {
       try {
-        const res = await loginUser(values).unwrap()
+        const res = await loginUser(values).unwrap();
        if(res?.data?.token) {
          dispatch(setCredentials({ ...res.data }))
         dispatch(setUser(res?.data.user))
@@ -36,6 +35,7 @@ const Login = () => {
         navigate(spark.after_auth_path)
        }
       } catch (err) {
+        console.log("login error:", err)
         toast.error(
           (err as { data?: { message?: string } })?.data?.message ?? 'Invalid email or password',
         )

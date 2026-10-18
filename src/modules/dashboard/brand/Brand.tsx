@@ -1,4 +1,4 @@
-import { Button, CustomModal, DashboardLayout, DeleteModal, EmptyState, InnerWrapper, Label } from "@/components";
+import { Button, CustomModal, DeleteModal, EmptyState, InnerWrapper, Label } from "@/components";
 import { Icons, Images } from "@/constants";
 import { useState } from "react";
 import { CreateBrand } from "./modules/CreateBrand";
@@ -50,7 +50,7 @@ const Brand = () => {
 
 
   return (
-    <DashboardLayout>
+    <>
       <InnerWrapper>
         <div className="flex justify-between items-center pb-5 w-full">
           <Label label="Brand" />
@@ -110,7 +110,7 @@ const Brand = () => {
          <ViewBrand close={handleClose} brandId={isBrandId} />
       </CustomModal>
     )}
-    </DashboardLayout>
+    </>
   );
 };
 
