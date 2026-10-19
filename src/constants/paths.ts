@@ -17,7 +17,7 @@ export const paths = {
     completeProfile: SetUpPrefix + "/complete-profile",
     companyProfile: SetUpPrefix + "/company-profile",
     choosePlan: SetUpPrefix + "/choose-plan",
-    planCart: SetUpPrefix + "/order-cart",
+    planCart: SetUpPrefix + "/order-cart/?",
     checkout: SetUpPrefix + "/order-checkout",
     success: SetUpPrefix + "/success",
     terms: HomePrefix + 'terms',

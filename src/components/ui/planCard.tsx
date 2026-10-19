@@ -1,8 +1,9 @@
 
-import { Icons } from "@/constants";
+import { Icons, paths } from "@/constants";
 import { apiServices } from "@/services";
 import { ChoosePlanAPIResponse, PlanCardProps } from "@/types/types";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const PlanCard: React.FC<PlanCardProps & { onSelectPlan: (id: string | number) => void }> = ({
@@ -20,22 +21,25 @@ const PlanCard: React.FC<PlanCardProps & { onSelectPlan: (id: string | number) =
   onSelectPlan,
   isSelected,
 }) => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [ choosePlan, {isLoading: isChoosePlanLoading}] = apiServices.useChoosePlanMutation();
   const [loadingSubscriptionId, setLoadingSubscriptionId] = useState<string | number | null>(null);
 
   const handleChoosePlan = async (event: React.MouseEvent<HTMLButtonElement>) => {
-     event.preventDefault(); // Prevent default form submission
-      event.stopPropagation(); // Stop bubbling
+     event.preventDefault();
+      event.stopPropagation();
       if (!isSelected || isChoosePlanLoading) return; // Ensure only selected plan submits
 
 
     setLoadingSubscriptionId(subscription_id);
       try {
         const payload: ChoosePlanAPIResponse = { subscription_id };
-        await choosePlan(payload);
+        const response = await choosePlan(payload).unwrap();
+        if(response.data?.reference) {
+          navigate(`${paths.planCart}reference=${response.data?.reference}`);
+        }
       } finally {
-        setLoadingSubscriptionId(null); // Reset after submission
+        setLoadingSubscriptionId(null); 
       }
   };
 

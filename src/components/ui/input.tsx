@@ -8,7 +8,7 @@ const Input:React.FC<InputProps> = (props) => {
       {props.type === "text" || props.type === "email" || props.type === "date" || props.type === "tel" ? (
         <div className={`w-full ${props.padding}`}>
             <p className='text-gray500 text-16 font-normal font-outfit pb-2'>{props.label}</p>
-            <InputField onBlur={props.onBlur} onError={props.onError} disabled={props.disabled} addonBefore={props.addonBefore} onChange={props.onChange} name={props.name} placeholder={props.placeholder} value={props.value} variant='borderless' className={props.className} />
+             <InputField onBlur={props.onBlur} onError={props.onError} disabled={props.disabled} onChange={props.onChange} name={props.name} placeholder={props.placeholder} value={props.value} variant='borderless' className={props.className} />
         </div>
       ) : props.type === "otp" ? (
         <div className={`w-full ${props.padding}`}>

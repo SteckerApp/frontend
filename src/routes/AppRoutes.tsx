@@ -2,6 +2,7 @@ import {
   AffiliateOnly,
   Bootstrap,
   ClientOrAffiliate,
+  Onboarding,
   Private,
   PublicOnly,
 } from '@/access/access'
@@ -27,6 +28,10 @@ const AppRoutes = () => {
           <Route path={paths.forgotPassword} element={<ForgotPasswordScreen />} />
           <Route path={paths.changePassword} element={<ChangePasswordScreen />} />
           <Route path={paths.register} element={<RegisterScreen />} />
+        </Route>
+
+        {/* Signed in, onboarding */}
+        <Route element={<Onboarding />}>
           <Route path={paths.otpVerify} element={<OTPScreen />} />
           <Route path={paths.completeProfile} element={<ProfileScreen />} />
           <Route path={paths.companyProfile} element={<CompanyProfileScreen />} />

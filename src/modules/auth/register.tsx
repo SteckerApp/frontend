@@ -5,9 +5,12 @@ import { useNavigate } from "react-router-dom"
 import { useFormik } from "formik";
 import { apiServices } from "@/services";
 import { toast } from "react-toastify";
+import { setCredentials, setUser } from "@/store/authSlice";
+import { useAppDispatch } from "@/store/hook";
 
 const Register = () => {
   const navigate = useNavigate();
+  const dispatch   = useAppDispatch()
   const [ registerUser, { isLoading: isRegisterLoading }] = apiServices.useRegisterMutation();
 
   const formik = useFormik({
@@ -20,9 +23,14 @@ const Register = () => {
     },
     onSubmit: async (values) => {
       try {
-        const res = await registerUser(values).unwrap()
-        toast.success(res?.message ?? 'Account created. Check your email for a code.')
-        navigate(paths.otpVerify, { state: { email: values.email } })
+        const res = await registerUser(values).unwrap();
+        console.log("register res:", res)
+        if(res?.data?.token) {
+            toast.success(res?.message ?? 'Account created. Check your email for a code.')
+            navigate(paths.otpVerify, { state: { email: values.email } })
+            dispatch(setCredentials({ ...res.data }))
+            dispatch(setUser(res?.data.user))
+        }
       } catch (err) {
         toast.error(
           (err as { data?: { message?: string } })?.data?.message ??

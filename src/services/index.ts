@@ -25,6 +25,8 @@ import {
   useGetTeamsQuery,
 } from "./dashboard/team.service";
 import { useGetDashboardQuery } from "./dashboard/dashboard.service";
+import { useGetSubscriptionsAddonsQuery, useGetSubscriptionsQuery } from "./auth/subscription.service";
+import { useGetCartInformationsQuery } from "./auth/cart.service";
 
 export const apiServices = {
 
@@ -54,4 +56,13 @@ export const apiServices = {
 
   // Dashboard
   useGetDashboardQuery,
+
+
+  // SUBSCRIPTION
+  useGetSubscriptionsQuery,
+  useGetSubscriptionsAddonsQuery,
+
+
+  // CART
+  useGetCartInformationsQuery,
 };

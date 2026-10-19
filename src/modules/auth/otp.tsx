@@ -21,17 +21,32 @@ const OTP = () => {
   const [timer, setTimer] = useState<number>(50);
 
    const formik = useFormik({
-    initialValues: { code: '' },
-    onSubmit: async (values) => {
-      try {
-        const res = await verifyEmailOTP(values).unwrap()
-        toast.success(res?.message ?? 'Email verified')
-        navigate(paths.completeProfile)
-      } catch (err) {
-        toast.error(getErrorMessage(err, 'Invalid or expired code'))
-      }
-    },
-  })
+  initialValues: { code: '' },
+
+  onSubmit: async (values) => {
+    const code = values.code.trim()
+
+    if (!code) {
+      toast.error('Please enter the OTP sent to your email')
+      return
+    }
+
+    if (code.length !== 8) {
+      toast.error('Please enter the complete 8-digit OTP')
+      return
+    }
+
+    try {
+
+      const res = await verifyEmailOTP({ code }).unwrap()
+
+      toast.success(res?.message ?? 'Email verified')
+      navigate(paths.completeProfile)
+    } catch (err) {
+      toast.error(getErrorMessage(err, 'Invalid or expired code'))
+    }
+  },
+})
 
   // Tick once a second while resend is locked
   useEffect(() => {
@@ -62,7 +77,7 @@ const OTP = () => {
         <p className='text-25 md:text-30 font-medium font-outfit text-black text-center'>Complete your profile?</p>
         <p className='text-gray text-18 font-regular font-outfit pt-2 border-b border-border pb-8 mb-8 text-center'>Please confirm your email address</p>
         <form onSubmit={formik.handleSubmit}>
-          <Input onOtpChange={(value) => formik.setFieldValue("code", value)} type='otp' name='code'  value={formik.values.code} length={6} onBlur={formik.handleBlur} label='Enter OTP Code sent to your email' padding="flex justify-center items-center flex-col" />
+          <Input otpChange={(value) => formik.setFieldValue("code", value)} type='otp' name='code'  value={formik.values.code} length={8} onBlur={formik.handleBlur} label='Enter OTP Code sent to your email' padding="flex justify-center items-center flex-col" />
           <Button type="primary" className="w-full mt-7" htmlType='submit' loading={isOTPLoading}>Next</Button>
         </form>
         <p className="flex justify-center items-center text-center gap-5 text-16 text-gray font-regular font-outfit pt-5">

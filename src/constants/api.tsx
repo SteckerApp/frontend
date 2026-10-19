@@ -21,4 +21,17 @@ export const apiPaths = {
     choosePlan: '/api/cart/create',
     forgot: '/api/auth/password/reset',
     changePassword: '/api/auth/password',
+
+    // PLANS
+    subscription: '/api/subscription',
+    subscriptionAddons: '/api/subscription/addons',
+    plans: '/api/plans',
+    planCart: '/api/cart',
+    checkout: '/api/checkout',
+    success: '/api/checkout/success',
+
+    // AFFILIATE
+    affiliateDashboard: '/api/dashboard/affiliate',
+    affiliateProfile: '/api/dashboard/affiliate/profile',
+    affiliateWithdrawal: '/api/dashboard/affiliate/withdrawal',
 }

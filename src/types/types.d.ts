@@ -1,3 +1,5 @@
+import { Permissions } from "./auth.types";
+
 interface AuthLayoutProps {
     children: React.ReactNode;
     height?: string
@@ -128,11 +130,7 @@ interface Project {
     created_at?: string
     updated_at?: string
     pivot?: UserPivotResponse
-    permissions: {
-      id: number | string,
-      name: string
-      ability: string
-  }[],
+    permissions: Permissions[],
   roles: string[]
   }
 
@@ -388,4 +386,7 @@ export interface BrandResponse {
   subscription_id: number | string;
   message?: string
   status?: string | number;
+  data?: {
+    reference: string
+  }
  }

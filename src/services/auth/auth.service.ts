@@ -15,7 +15,7 @@ export const authApi = createApi({
     login: b.mutation<LoginResponse, LoginCredentials>({
       query: (body) => ({ url: apiPaths.auth, method: 'POST', body }),
     }),
-    register: b.mutation<ApiMessage, UserRegistration>({
+    register: b.mutation<LoginResponse, UserRegistration>({
       query: (body) => ({ url: apiPaths.register, method: 'POST', body }),
     }),
     getMe: b.query<UserProfileResponse, void>({
@@ -46,7 +46,7 @@ export const authApi = createApi({
     }),
 
     company: b.mutation<ApiMessage, { formData: FormData}>({
-      query: (formData) => ({ url: apiPaths.company, method: 'POST', body: formData }),
+      query: ({formData}) => ({ url: apiPaths.company, method: 'POST', body: formData }),
     }),
   }),
 })

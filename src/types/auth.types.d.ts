@@ -111,3 +111,57 @@ export interface UserRegistration {
   message?: string;
   status?: string | number
 }
+
+
+// PLAN SUBSCRIPTION TYPES
+export interface SubscriptionResponse {
+  message: string;
+  data: SubscriptionData;
+}
+
+export interface SubscriptionAddonsResponse {
+  message: string;
+  data: SubscriptionPlan[];
+}
+
+export interface SubscriptionData {
+  monthly: SubscriptionPlan[];
+  "bi-annually": SubscriptionPlan[];
+  annually: SubscriptionPlan[];
+}
+
+export interface SubscriptionPlan {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  type: "monthly" | "bi-annually" | "annually";
+  days: number | null;
+  metadata: SubscriptionMetadata[] | null;
+  default: number;
+  info: number;
+  discounted: string | null;
+  currency: string;
+  visible: string;
+  most_popular: string;
+  order: number;
+  user_limit: number;
+  design_limit: number;
+  category: string;
+  group_identifier: string;
+  created_at: string;
+  updated_at: string;
+  save_up_to: string;
+  service_id: number | null;
+  label?: string | null;
+}
+
+export interface SubscriptionMetadata {
+  info?: SubscriptionMetadataInfo[];
+  title: string;
+  showIcon?: string;
+}
+
+export interface SubscriptionMetadataInfo {
+  title: string;
+}

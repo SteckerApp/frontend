@@ -5,9 +5,10 @@ import { paths } from '@/constants'
 import { useAppDispatch, useAppSelector } from '@/store/hook'
 import { clearAuth, selectToken, selectUser, setUser } from '@/store/authSlice'
 import { FaSpinner } from 'react-icons/fa'
-import { DashboardLayout }from '@/components'
+import { DashboardLayout, Loading }from '@/components'
 import { apiServices } from '@/services'
 import { spark } from '@/config'
+import { User } from '@/types/auth.types'
 
 // ── Loader fallback ────
 function PageLoader() {
@@ -22,46 +23,68 @@ function PageLoader() {
 export function Bootstrap({ children }: { children: ReactNode }) {
   const dispatch = useAppDispatch()
   const token = useAppSelector(selectToken)
-  // const user = useAppSelector(selectUser)
-  const { data, isSuccess } = apiServices.useGetMeQuery(undefined, {
+  const user = useAppSelector(selectUser)
+
+  const {
+    data,
+    isSuccess,
+    isError,
+    isFetching,
+    refetch,
+  } = apiServices.useGetMeQuery(undefined, {
     skip: !token,
   })
 
-  console.log("get login user from bootstrap:", data?.data?.user)
+  const response = data as
+    | {
+        user?: User
+        data?: { user?: User }
+      }
+    | undefined
 
-  console.log("get login user from bootstrap success:", isSuccess)
+  const authenticatedUser =
+    response?.user ?? response?.data?.user
 
   useEffect(() => {
-  if (isSuccess && data) {
+    if (!token || !isSuccess || !authenticatedUser) return
 
-    dispatch(setUser(data?.data?.user))
+    dispatch(setUser(authenticatedUser))
+  }, [token, isSuccess, authenticatedUser, dispatch])
+
+  if (!token) {
+    return <>{children}</>
   }
-}, [dispatch, data, isSuccess])
 
-  // Stay on the splash until the user is in the store. Checking `isFetching`
-  // alone leaves a one-render gap between the response arriving and setUser
-  // running, and the user_type guards would redirect during that gap.
-  if (token && !data?.data?.user ) {
-
+  // Wait for the API request and Redux hydration.
+  if (isFetching || (!isSuccess && !isError)) {
     return (
-      <div className="min-h-screen bg-void flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-10 h-10 rounded-xl bg-violet flex items-center justify-center">
-            <svg
-              className="w-5 h-5 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              strokeWidth={2.2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          </div>
-          <FaSpinner size={20} />
-          <p className="text-sm text-dim">Connecting…</p>
-        </div>
+      <Loading visible={true} text="Connecting…" />
+    )
+  }
+
+  if (isError || (isSuccess && !authenticatedUser)) {
+    return (
+      <div className="min-h-screen bg-void flex flex-col items-center justify-center gap-4 p-6">
+        <p className="text-sm text-dim text-center">
+          {isError
+            ? 'Unable to load your account. Please try again.'
+            : 'The account response did not contain a user.'}
+        </p>
+
+        <button
+          type="button"
+          onClick={() => void refetch()}
+          className="rounded-lg bg-violet px-5 py-2 text-sm text-white"
+        >
+          Try again
+        </button>
       </div>
     )
+  }
+
+  // setUser is dispatched in an effect, so wait for the Redux update.
+  if (!user) {
+    return <PageLoader />
   }
 
   return <>{children}</>
@@ -69,8 +92,7 @@ export function Bootstrap({ children }: { children: ReactNode }) {
 
 // ── Route guards ───
 export function Private() {
-  const token = useAppSelector(selectToken)
-  console.log("private only token:", token)
+  const token = useAppSelector(selectToken);
   if (!token) return <Navigate to={paths.login} replace />
   return (
     <DashboardLayout>
@@ -118,8 +140,12 @@ export function AffiliateOnly() {
 
 export function PublicOnly() {
   const token = useAppSelector(selectToken)
-
-  console.log("public only token:", token)
   if (token) return <Navigate to={paths.dashboardOverview} replace />
+  return <Outlet />
+}
+
+export function Onboarding() {
+  const token = useAppSelector(selectToken)
+  if (!token) return <Navigate to={paths.login} replace />
   return <Outlet />
 }

@@ -63,5 +63,6 @@ export const selectToken = (s: RootState) => s.auth.token
 export const selectRefreshToken = (s: RootState) => s.auth.refreshToken
 export const selectPermissions = (s: RootState) => s.auth.permissions
 export const selectRoles = (s: RootState) => s.auth.roles
+export const selectCredentials = (s: RootState) => s.auth
 
 export default authSlice.reducer

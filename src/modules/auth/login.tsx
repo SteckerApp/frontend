@@ -29,10 +29,10 @@ const Login = () => {
       try {
         const res = await loginUser(values).unwrap();
        if(res?.data?.token) {
-         dispatch(setCredentials({ ...res.data }))
-        dispatch(setUser(res?.data.user))
-        toast.success(`Welcome back, ${res.data.user.firstName}!`)
-        navigate(spark.after_auth_path)
+          dispatch(setCredentials({ ...res.data }))
+          dispatch(setUser(res?.data.user))
+          toast.success(`Welcome back, ${res.data.user.firstName}!`)
+          navigate(spark.after_auth_path)
        }
       } catch (err) {
         console.log("login error:", err)
