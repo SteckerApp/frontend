@@ -1,6 +1,6 @@
 import { baseQuery } from "@/api/baseQuery";
 import { apiPaths } from "@/constants/api";
-import { ApplyCouponData, CartTransactionResponse } from "@/types/cart.types";
+import { ApplyCouponData, CartTransactionResponse, CartQuantity } from "@/types/cart.types";
 import { ApiMessage } from "@/types/shared.types";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
@@ -25,6 +25,15 @@ export const cartApi = createApi({
       }),
       invalidatesTags: ["Cart"],
     }),
+
+    updateCartQuantity: b.mutation<ApiMessage, { reference: string } & CartQuantity>({
+      query: ({ reference, ...body }) => ({
+        url: `${apiPaths.planCart}/${reference}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Cart", "Subscription"],
+    }),
   }),
 });
-export const { useGetCartInformationsQuery, useApplyCouponMutation } = cartApi;
+export const { useGetCartInformationsQuery, useApplyCouponMutation, useUpdateCartQuantityMutation } = cartApi;

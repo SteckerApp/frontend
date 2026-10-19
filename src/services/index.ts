@@ -26,7 +26,7 @@ import {
 } from "./dashboard/team.service";
 import { useGetDashboardQuery } from "./dashboard/dashboard.service";
 import { useGetSubscriptionsAddonsQuery, useGetSubscriptionsQuery } from "./auth/subscription.service";
-import { useGetCartInformationsQuery, useApplyCouponMutation } from "./auth/cart.service";
+import { useGetCartInformationsQuery, useApplyCouponMutation, useUpdateCartQuantityMutation } from "./auth/cart.service";
 
 export const apiServices = {
 
@@ -65,5 +65,6 @@ export const apiServices = {
 
   // CART
   useGetCartInformationsQuery,
-  useApplyCouponMutation
+  useApplyCouponMutation,
+  useUpdateCartQuantityMutation,
 };

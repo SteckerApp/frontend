@@ -12,6 +12,8 @@ import { getErrorMessage } from "@/utils/ultis";
 const Cart = ({ reference }: { reference?: string | null }) => {
   const [couponCode, setCouponCode] = useState("");
   const [ applyCoupon, { isLoading: isApplyingCoupon }] = apiServices.useApplyCouponMutation();
+  const [ updateCartQuantity, { isLoading: isUpdatingCartQuantity }] = apiServices.useUpdateCartQuantityMutation();
+
   const {
     data: cart,
     isLoading,
@@ -34,9 +36,9 @@ const Cart = ({ reference }: { reference?: string | null }) => {
   const subtotal = formatCurrencyAmount(cartData?.subtotal, currencyCode);
   const total = formatCurrencyAmount(cartData?.total, currencyCode);
 
-  const [selectedAddons, setSelectedAddons] = useState<number[]>([]);
+   const [selectedAddons, setSelectedAddons] = useState<number[]>([]);
   const [addonMonths, setAddonMonths] = useState<{ [key: number]: number }>({});
-
+ 
   const handleSelectAddon = (id: number) => {
     if (selectedAddons.includes(id)) {
       setSelectedAddons(selectedAddons.filter((addonId) => addonId !== id));
@@ -50,7 +52,7 @@ const Cart = ({ reference }: { reference?: string | null }) => {
       setAddonMonths({ ...addonMonths, [id]: 1 });
     }
   };
-
+ 
   const handleRemoveAddon = (id: number) => {
     setSelectedAddons(selectedAddons.filter((addonId) => addonId !== id));
     // Remove months tracking when removing
@@ -58,15 +60,35 @@ const Cart = ({ reference }: { reference?: string | null }) => {
     delete updatedAddonMonths[id];
     setAddonMonths(updatedAddonMonths);
   };
-
-  const handleIncreaseMonths = (id: number) => {
-    setAddonMonths({ ...addonMonths, [id]: addonMonths[id] + 1 });
-  };
-
-  const handleDecreaseMonths = (id: number) => {
-    if (addonMonths[id] > 1) {
-      setAddonMonths({ ...addonMonths, [id]: addonMonths[id] - 1 });
+ 
+  // Update the month count in the UI right away, sync it to the server,
+  // and roll back if the request fails.
+  const setMonths = async (id: number, unit: number) => {
+    if (!reference || isUpdatingCartQuantity) return;
+ 
+    const previous = addonMonths[id] ?? 1;
+    setAddonMonths((months) => ({ ...months, [id]: unit }));
+ 
+    try {
+      await updateCartQuantity({
+        reference: reference,
+        subscription_id: id,
+        unit,
+        default: true,
+      }).unwrap();
+    } catch (err) {
+      setAddonMonths((months) => ({ ...months, [id]: previous }));
+      toast.error(getErrorMessage(err, "Could not update quantity"));
     }
+  };
+ 
+  const handleIncreaseMonths = (id: number) => {
+    setMonths(id, (addonMonths[id] ?? 1) + 1);
+  };
+ 
+  const handleDecreaseMonths = (id: number) => {
+    const current = addonMonths[id] ?? 1;
+    if (current > 1) setMonths(id, current - 1);
   };
 
   const handleApplyCoupon = async () => {

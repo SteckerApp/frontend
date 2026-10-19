@@ -42,3 +42,9 @@ export interface ApplyCouponData {
   code: string,
   reference: string
 }
+
+export interface CartQuantity {
+    subscription_id: number,
+    unit: number,
+    default: boolean
+}
