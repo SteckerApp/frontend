@@ -36,3 +36,9 @@ export interface CartItem {
   updated_at: string;
   subscription: SubscriptionPlan;
 }
+
+
+export interface ApplyCouponData {
+  code: string,
+  reference: string
+}

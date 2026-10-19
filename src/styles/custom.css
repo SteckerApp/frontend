@@ -1,6 +1,5 @@
 
 
-
 @font-face {
     font-family: 'Outfit';
     src: url('../assets/fonts/Gilroy-Thin.ttf') format('truetype');
@@ -186,7 +185,7 @@ input {
 .ant-btn, .ant-btn:focus {
     outline-style: none !important;
     box-shadow: none !important;
-    height: 60px !important;
+    height: 49px !important;
     border-color: none;
 }
 
@@ -200,7 +199,7 @@ input {
 .ant-input, .ant-input-password, .ant-input-affix-wrapper, .ant-select, select {
     outline-style: none !important;
     box-shadow: none !important;
-    height: 49px;
+    height: 49px !important;
     border: 1.5px solid var(--colorGray);
     border-color: none;
 }
@@ -225,6 +224,16 @@ input {
 
 .ant-otp-input:invalid, .ant-input-otp:invalid {
     border: 1.5px solid var(--colorGray);
+}
+.ant-input-search-btn {
+    height: 49px !important;
+    background: var(--colorPrimary) !important;
+    font-family: var(--fontOutfit);
+}
+
+.ant-input-search-btn span {
+    font-family: var(--fontOutfit);
+    color: var(--colorWhite) !important;
 }
 
 .ant-input::placeholder, .ant-input-password::placeholder, .ant-input-affix-wrapper::placeholder, .ant-otp-input::placeholder, .ant-input-otp::placeholder, .ant-select::placeholder, select::placeholder  {

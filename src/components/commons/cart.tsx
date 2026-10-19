@@ -1,31 +1,41 @@
 import { useState } from "react";
-// import { cartAddon } from "@/data/cart.addon";
 import { Icons, paths } from "@/constants";
 import { Link } from "react-router-dom";
-import { Alert, Button } from "antd";
+import { Alert, Button, Input } from "antd";
 import { apiServices } from "@/services";
 import { skipToken } from "@reduxjs/toolkit/query";
 import { formatCurrencyAmount } from "@/utils/formatCurrency";
 import AppSkeleton from "./AppSkeleton";
+import { toast } from "react-toastify";
+import { getErrorMessage } from "@/utils/ultis";
 
 const Cart = ({ reference }: { reference?: string | null }) => {
-  const { data: cart, isLoading, isError } =  apiServices.useGetCartInformationsQuery(reference || skipToken);
-  const { data: subscriptionAddons, isLoading: isSubscriptionAddonsLoading, isError: isSubscriptionAddonsError } = apiServices.useGetSubscriptionsAddonsQuery();
+  const [couponCode, setCouponCode] = useState("");
+  const [ applyCoupon, { isLoading: isApplyingCoupon }] = apiServices.useApplyCouponMutation();
+  const {
+    data: cart,
+    isLoading,
+    isError,
+  } = apiServices.useGetCartInformationsQuery(reference || skipToken);
+  const {
+    data: subscriptionAddons,
+    isLoading: isSubscriptionAddonsLoading,
+    isError: isSubscriptionAddonsError,
+  } = apiServices.useGetSubscriptionsAddonsQuery();
 
-const cartAddons = subscriptionAddons?.data ?? [];
+  const cartAddons = subscriptionAddons?.data ?? [];
 
+  const cartData = cart?.data;
+  const mainSubscription = cartData?.info?.[0]?.subscription;
 
-const cartData = cart?.data;
-const mainSubscription = cartData?.info?.[0]?.subscription;
+  const planTitle = mainSubscription?.title ?? "Graphic Design";
+  const currencyCode = cartData?.info?.[0]?.currency ?? "NGN";
 
-const planTitle = mainSubscription?.title ?? "Graphic Design";
-const currencyCode = cartData?.info?.[0]?.currency ?? "NGN";
-
-const subtotal = formatCurrencyAmount(cartData?.subtotal, currencyCode);
-const total = formatCurrencyAmount(cartData?.total, currencyCode);
+  const subtotal = formatCurrencyAmount(cartData?.subtotal, currencyCode);
+  const total = formatCurrencyAmount(cartData?.total, currencyCode);
 
   const [selectedAddons, setSelectedAddons] = useState<number[]>([]);
-  const [addonMonths, setAddonMonths] = useState<{ [key: number]: number }>({}); 
+  const [addonMonths, setAddonMonths] = useState<{ [key: number]: number }>({});
 
   const handleSelectAddon = (id: number) => {
     if (selectedAddons.includes(id)) {
@@ -59,46 +69,56 @@ const total = formatCurrencyAmount(cartData?.total, currencyCode);
     }
   };
 
+  const handleApplyCoupon = async () => {
+  const code = couponCode.trim();
+  if (!code || !reference) return;
+  try {
+    const res = await applyCoupon({ code, reference }).unwrap();
+    toast.success(res?.message ?? "Coupon applied");
+    setCouponCode("");
+  } catch (err) {
+    toast.error(getErrorMessage(err, "Could not apply coupon"));
+  }
+};
 
   if (isLoading || isSubscriptionAddonsLoading) {
-  return (
+    return (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 w-full">
-      <section className="bg-white p-5 rounded-lg">
-        <div className="bg-primary p-5 rounded-lg mb-8">
-          <AppSkeleton
-            title
-            paragraph
-            rows={2}
-            className="[&_.ant-skeleton-title]:!bg-white/30 [&_.ant-skeleton-paragraph>li]:!bg-white/20"
-          />
-        </div>
+        <section className="bg-white p-5 rounded-lg">
+          <div className="bg-primary p-5 rounded-lg mb-8">
+            <AppSkeleton
+              title
+              paragraph
+              rows={2}
+              className="[&_.ant-skeleton-title]:!bg-white/30 [&_.ant-skeleton-paragraph>li]:!bg-white/20"
+            />
+          </div>
 
-        <AppSkeleton variant="card" count={4} rows={2} />
-      </section>
+          <AppSkeleton variant="card" count={4} rows={2} />
+        </section>
 
-      <section className="bg-white p-5 rounded-lg">
-        <AppSkeleton variant="text" rows={1} />
-        <AppSkeleton variant="card" rows={3} className="mt-5" />
-        <AppSkeleton variant="text" rows={3} className="mt-8" />
-        <div className="mt-6">
-          <AppSkeleton variant="text" title={false} paragraph={false} />
-        </div>
-      </section>
-    </div>
-  );
-}
+        <section className="bg-white p-5 rounded-lg">
+          <AppSkeleton variant="text" rows={1} />
+          <AppSkeleton variant="card" rows={3} className="mt-5" />
+          <AppSkeleton variant="text" rows={3} className="mt-8" />
+          <div className="mt-6">
+            <AppSkeleton variant="text" title={false} paragraph={false} />
+          </div>
+        </section>
+      </div>
+    );
+  }
 
-if (isError || isSubscriptionAddonsError) {
-  return (
-    <Alert
-      type="error"
-      showIcon
-      title="Unable to load your cart"
-      description="Please try again in a moment."
-    />
-  );
-}
-
+  if (isError || isSubscriptionAddonsError) {
+    return (
+      <Alert
+        type="error"
+        showIcon
+        title="Unable to load your cart"
+        description="Please try again in a moment."
+      />
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-5 w-full">
@@ -111,9 +131,10 @@ if (isError || isSubscriptionAddonsError) {
             {subtotal} /month
           </span>
           <span className="text-white capitalize text-12 font-outfit font-regular">
-            Renews on 03 Nov. 2021 | {mainSubscription?.type
-      ? `${mainSubscription.type} plan`
-      : "Subscription plan"}
+            Renews on 03 Nov. 2026 |{" "}
+            {mainSubscription?.type
+              ? `${mainSubscription.type} plan`
+              : "Subscription plan"}
           </span>
           <Link to={paths.choosePlan}>
             <button className="bg-pending hover:bg-white text-black capitalize text-16 font-outfit font-medium py-3 px-4 rounded-12 mt-2">
@@ -143,7 +164,10 @@ if (isError || isSubscriptionAddonsError) {
                     {price ? (
                       <>
                         <span className="text-24 text-black font-bold font-outfit">
-                          {formatCurrencyAmount(price, currency ?? currencyCode)}
+                          {formatCurrencyAmount(
+                            price,
+                            currency ?? currencyCode,
+                          )}
                         </span>
                         <span className="text-14 text-black font-regular font-outfit">
                           /month
@@ -164,7 +188,9 @@ if (isError || isSubscriptionAddonsError) {
                     } border border-primary hover:bg-primary hover:text-white capitalize text-16 font-outfit font-medium py-3 px-4 rounded-12`}
                     onClick={() => handleSelectAddon(id)}
                   >
-                    {selectedAddons.includes(id) ? "Added" : `${label ?? "Add subscription"}`}
+                    {selectedAddons.includes(id)
+                      ? "Added"
+                      : `${label ?? "Add subscription"}`}
                   </button>
                 </section>
               </section>
@@ -198,7 +224,10 @@ if (isError || isSubscriptionAddonsError) {
                     {price ? (
                       <>
                         <span className="text-24 text-black font-bold font-outfit">
-                          {formatCurrencyAmount(price, currency ?? currencyCode)}
+                          {formatCurrencyAmount(
+                            price,
+                            currency ?? currencyCode,
+                          )}
                         </span>
                         <span className="text-14 text-black font-regular font-outfit">
                           /month
@@ -218,18 +247,22 @@ if (isError || isSubscriptionAddonsError) {
                       Month(s):
                     </span>
                     <div className="flex justify-center items-center gap-3">
-                        <span className="w-5 h-5"><Icons.MinusIcon
+                      <span className="w-5 h-5">
+                        <Icons.MinusIcon
                           className="cursor-pointer"
                           onClick={() => handleDecreaseMonths(id)}
                           size={20}
-                        /></span>
-                        {addonMonths[id]}
-                        
-                        <span className="w-5 h-5"><Icons.CirclePlusIcon
+                        />
+                      </span>
+                      {addonMonths[id]}
+
+                      <span className="w-5 h-5">
+                        <Icons.CirclePlusIcon
                           className="cursor-pointer"
                           onClick={() => handleIncreaseMonths(id)}
                           size={20}
-                        /></span>
+                        />
+                      </span>
                     </div>
                   </div>
                 )}
@@ -238,7 +271,10 @@ if (isError || isSubscriptionAddonsError) {
                   <p className="text-15 text-black font-regular font-outfit w-full md:w-[16rem]">
                     Total: {""}
                     <span className="text-20 font-bold font-outfit text-primary">
-                      {formatCurrencyAmount(price * addonMonths[id], currency ?? currencyCode)}
+                      {formatCurrencyAmount(
+                        price * addonMonths[id],
+                        currency ?? currencyCode,
+                      )}
                     </span>
                   </p>
                 )}
@@ -246,34 +282,68 @@ if (isError || isSubscriptionAddonsError) {
             );
           })}
 
-          <div className="py-10">
+
+        <div className="pt-6">
+          <span className="text-14 font-regular font-outfit text-black">
+            Have a promo code?
+          </span>
+
+          {cartData?.promo_code ? (
+            <p className="mt-2 text-15 font-outfit text-black">
+              Code <span className="font-bold text-primary">{cartData.promo_code}</span> applied
+            </p>
+          ) : (
+            <Input.Search
+              className="mt-2"
+              size="large"
+              placeholder="Enter promo code"
+              enterButton="Apply"
+              value={couponCode}
+              onChange={(e) => setCouponCode(e.target.value)}
+              onSearch={handleApplyCoupon}
+              loading={isApplyingCoupon}
+              disabled={!reference}
+            />
+          )}
+
+
+        </div>  
+
+        <div className="py-10">
+          <p className="flex justify-between items-center text-16 text-blackHeader font-normal font-outfit">
+            <span>Subtotal</span>
+            <span>{subtotal}</span>
+          </p>
+          <p className="flex justify-between items-center text-16 text-blackHeader font-normal font-outfit">
+            <span>Promo Code</span>
+            <span>{cartData?.promo_code ?? "—"}</span>
+          </p>
+
+          {cartData?.discounted != null && Number(cartData.discounted) > 0 && (
             <p className="flex justify-between items-center text-16 text-blackHeader font-normal font-outfit">
-                <span>Subtotal</span>
-                <span>{subtotal}</span>
+              <span>Discount</span>
+              <span>
+                -{formatCurrencyAmount(cartData.discounted, currencyCode)}
+              </span>
             </p>
-            <p className="flex justify-between items-center text-16 text-blackHeader font-normal font-outfit">
-                <span>Promo Code</span>
-               <span>{cartData?.promo_code ?? "—"}</span>
-            </p>
+          )}
 
-            {cartData?.discounted != null && Number(cartData.discounted) > 0 && (
-    <p className="flex justify-between items-center text-16 text-blackHeader font-normal font-outfit">
-      <span>Discount</span>
-      <span>
-        -{formatCurrencyAmount(cartData.discounted, currencyCode)}
-      </span>
-    </p>
-  )}
+          <p className="flex justify-between items-center text-20 text-black font-medium font-outfit">
+            <span>Total</span>
+            <span>{total}</span>
+          </p>
+        </div>
 
-            <p className="flex justify-between items-center text-20 text-black font-medium font-outfit">
-                <span>Total</span>
-                <span>{total}</span>
-            </p>
-          </div>
-
-          <div className="lg:absolute bottom-5 left-5 right-5">
-            <Link to={paths.checkout}><Button type="primary" className="text-18 font-semibold font-outfit w-full">Go to Checkout</Button></Link>
-          </div>
+        <div className="lg:absolute bottom-5 left-5 right-5">
+          <Link to={paths.checkout}>
+            <Button
+              type="primary"
+              className="text-18 font-semibold font-outfit w-full"
+            >
+              Go to Checkout
+            </Button>
+          </Link>
+        </div>
       </section>
     </div>
   );

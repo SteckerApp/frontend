@@ -25,6 +25,7 @@ export const apiPaths = {
     // PLANS
     subscription: '/api/subscription',
     subscriptionAddons: '/api/subscription/addons',
+    applyCoupon: '/api/cart/coupon/apply',
     plans: '/api/plans',
     planCart: '/api/cart',
     checkout: '/api/checkout',
